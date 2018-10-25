@@ -1,8 +1,8 @@
 'use strict';
 
-const isInnerIp = (ip) => {
-  return true
-}
+const isInnerIp = ip => {
+  return true;
+};
 
 module.exports = appInfo => {
   const config = exports = {};
@@ -11,7 +11,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_15959262317_1019';
 
   // add your config here
-  config.middleware = ['errorHandler'];
+  config.middleware = [ 'errorHandler' ];
 
   // // 只对 /api 前缀的 url 路径生效
   // config.errorHandler = {
@@ -23,7 +23,7 @@ module.exports = appInfo => {
       // 判断是否需要 ignore 的方法，请求上下文 context 作为第一个参数
       ignore: ctx => isInnerIp(ctx.ip),
     },
-  }
+  };
 
   exports.passportLocal = {
     usernameField: 'name',
@@ -35,6 +35,20 @@ module.exports = appInfo => {
     secret: '708a7a6a7f5885c1a3d8fa56a3bf6c4f82e963001',
     // callbackURL: '/passport/github/callback',
     // proxy: false,
+  };
+
+  config.model = {
+    dialect: 'mysql',
+    host: 'www.greatwebtech.cn',
+    database: 'LCDB',
+    username: 'liuchen',
+    password: 'abcedfg',
+    // Setup timezone
+    timezone: '+08:00',
+    // Setup charset
+    dialectOptions: {
+      charset: 'utf8',
+    },
   };
 
   return config;

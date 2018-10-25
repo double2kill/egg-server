@@ -21,3 +21,8 @@ module.exports.passportGithub = {
   enable: true,
   package: 'egg-passport-github',
 };
+
+exports.model = {
+  enable: true,
+  package: 'egg-model',
+};
