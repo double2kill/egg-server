@@ -17,12 +17,12 @@ exports.passportLocal = {
   package: 'egg-passport-local',
 };
 
-module.exports.passportGithub = {
+exports.passportGithub = {
   enable: true,
   package: 'egg-passport-github',
 };
 
-exports.model = {
+exports.mongoose = {
   enable: true,
-  package: 'egg-model',
+  package: 'egg-mongoose',
 };

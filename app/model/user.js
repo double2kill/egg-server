@@ -1,33 +1,17 @@
 'use strict';
 
-module.exports = function(model, types) {
-  const { STRING, INTEGER, TEXT, DATE } = types;
-  return model.define('user', {
-    login: {
-      type: STRING,
-      allowNull: false,
+module.exports = app => {
+  const mongoose = app.mongoose;
+  const Schema = mongoose.Schema;
+
+  const UserSchema = new Schema({
+    userName: {
+      type: String,
     },
-    name: {
-      type: STRING,
-    },
-    email: STRING,
-    avatar: STRING,
-    created_at: DATE,
-    updated_at: DATE,
-  }, {
-    getterMethods: {
-      fullName() {
-        return `${this.login} (${this.name})`;
-      },
-    },
-    classMethods: {
-      * findByLogin(login) {
-        return yield this.findOne({
-          where: {
-            login: login.toLowerCase(),
-          },
-        });
-      },
+    password: {
+      type: String,
     },
   });
+
+  return mongoose.model('User', UserSchema);
 };

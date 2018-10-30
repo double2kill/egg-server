@@ -1,4 +1,5 @@
 'use strict';
+const moreConfig = require('../shouldnotpublic.js');
 
 const isInnerIp = ip => {
   return true;
@@ -30,26 +31,9 @@ module.exports = appInfo => {
     passwordField: 'pass',
   };
 
-  config.passportGithub = {
-    key: '6c3ed0ab6bdf5e72dc8f57',
-    secret: '708a7a6a7f5885c1a3d8fa56a3bf6c4f82e963001',
-    // callbackURL: '/passport/github/callback',
-    // proxy: false,
-  };
+  config.passportGithub = moreConfig.passportGithub;
 
-  config.model = {
-    dialect: 'mysql',
-    host: 'www.greatwebtech.cn',
-    database: 'LCDB',
-    username: 'liuchen',
-    password: 'abcedfg',
-    // Setup timezone
-    timezone: '+08:00',
-    // Setup charset
-    dialectOptions: {
-      charset: 'utf8',
-    },
-  };
+  exports.mongoose = moreConfig.mongoose;
 
   return config;
 };

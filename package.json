@@ -6,6 +6,7 @@
   "dependencies": {
     "egg": "^2.2.1",
     "egg-model": "^1.0.3",
+    "egg-mongoose": "^3.1.0",
     "egg-passport": "^2.0.1",
     "egg-passport-github": "^1.0.0",
     "egg-passport-local": "^1.2.1",
