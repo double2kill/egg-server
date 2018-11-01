@@ -12,8 +12,7 @@ class HomeController extends Controller {
       await ctx.redirect('/passport/github');
       return;
     }
-    // const a = this.model.user.getterMethods();
-    this.ctx.body = `hi, ${user.name}`;
+    this.ctx.body = `hi, ${user.github_info.name}`;
   }
 }
 

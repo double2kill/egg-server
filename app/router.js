@@ -10,6 +10,7 @@ module.exports = app => {
   } = app;
   // 挂载鉴权路由
   app.passport.mount('github');
+
+  // 根目录
   router.get('/', controller.home.index);
-  app.router.resources('topics', '/api/v2/topics', app.controller.topics);
 };

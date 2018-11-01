@@ -5,12 +5,8 @@ module.exports = app => {
   const Schema = mongoose.Schema;
 
   const UserSchema = new Schema({
-    userName: {
-      type: String,
-    },
-    password: {
-      type: String,
-    },
+    user_id: String,
+    github_info: Schema.Types.Mixed,
   });
 
   return mongoose.model('User', UserSchema);

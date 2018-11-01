@@ -1,30 +1,18 @@
 'use strict';
 const Service = require('egg').Service;
-const fs = require('fs');
-const util = require('util');
-const readAsync = util.promisify(fs.readFile);
 
 class UsersService extends Service {
-  constructor(ctx) {
-    super(ctx);
-    const baseDir = __dirname + '/../';
-    this.opts = {
-      cwd: baseDir,
-      encoding: 'utf8',
-      stdio: [ process.stdin, process.stdout, process.stderr ],
-    };
-    this.fileName = baseDir + 'test.js';
+  async findUser(user_id) {
+    const { User } = this.ctx.model;
+    return await User.findOne({ user_id });
   }
 
-  async findUser(fn) {
-    let data = await readAsync(this.fileName);
-    data = JSON.parse(data);
-    return data.find(fn);
-  }
-
-  saveUser(users) {
-    const { fileName, opts } = this;
-    fs.writeFileSync(fileName, JSON.stringify(users, null, 2), opts);
+  async saveUser(user) {
+    const { User } = this.ctx.model;
+    return await User.create({
+      user_id: user.id,
+      github_info: user,
+    });
   }
 }
 
