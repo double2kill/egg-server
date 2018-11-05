@@ -13,4 +13,7 @@ module.exports = app => {
 
   // 根目录
   router.get('/', controller.home.index);
+
+  // 天气服务api
+  router.get('/weathers', controller.weathers.index);
 };
