@@ -6,6 +6,7 @@ module.exports = app => {
 
   const UserSchema = new Schema({
     statistics: Object,
+    date: String,
   });
 
   return mongoose.model('Weather', UserSchema);

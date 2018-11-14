@@ -15,5 +15,5 @@ module.exports = app => {
   router.get('/', controller.home.index);
 
   // 天气服务api
-  router.get('/weathers', controller.weathers.index);
+  router.get('/v0.1/weathers', controller.weathers.index);
 };

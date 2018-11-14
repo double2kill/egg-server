@@ -26,6 +26,11 @@ module.exports = appInfo => {
     },
   };
 
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET',
+  };
+
   exports.passportLocal = {
     usernameField: 'name',
     passwordField: 'pass',
