@@ -1,3 +1,3 @@
 export default {
-  host: 'http://127.0.0.1:7001'
+  host: 'http://www.greatwebtech.cn:7001'
 }
