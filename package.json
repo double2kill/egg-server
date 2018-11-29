@@ -32,6 +32,7 @@
     "start": "egg-scripts start --daemon --title=egg-server-greatwebtech",
     "stop": "egg-scripts stop --title=egg-server-greatwebtech",
     "dev": "egg-bin dev",
+    "web": "cd web && npm run serve",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",

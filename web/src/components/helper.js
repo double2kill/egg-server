@@ -1,10 +1,45 @@
+const PCOption = {
+  option: {
+    toolbox: {
+      show: true,
+      feature: {
+        dataView: { readOnly: false },
+        restore: {},
+      }
+    }
+  }
+}
+
+const mobileOption = {
+  query: {
+    maxWidth: 500
+  },
+  option: {
+    toolbox: {
+      show: false,
+    },
+    legend: {
+      right: 10,
+      top: '15%',
+      orient: 'vertical'
+    }
+  }
+}
+
+function formatMediaOption(option) {
+  return {
+    baseOption: option,
+    media: [PCOption, mobileOption]
+  }
+}
+
 export function getOptions(data) {
 
   const XData = data.map(item => item.date)
   const maxTempData = data.map(item => item.statistics.max_temp)
   const minTempData = data.map(item => item.statistics.min_temp)
 
-  return {
+  return formatMediaOption({
     title: {
       text: '大田历史变化',
     },
@@ -13,18 +48,6 @@ export function getOptions(data) {
     },
     legend: {
       data: ['最高气温', '最低气温']
-    },
-    toolbox: {
-      show: true,
-      feature: {
-        dataZoom: {
-          yAxisIndex: 'none'
-        },
-        dataView: { readOnly: false },
-        magicType: { type: ['line', 'bar'] },
-        restore: {},
-        saveAsImage: {}
-      }
     },
     xAxis: {
       type: 'category',
@@ -39,10 +62,14 @@ export function getOptions(data) {
     },
     series: [
       {
-        name: '最高气温',
         type: 'line',
+        name: '最高气温',
         data: maxTempData,
         markPoint: {
+          label: {
+            formatter: '{c}°C'
+          },
+          symbolSize: 60,
           data: [
             { type: 'max', name: '最大值' },
             { type: 'min', name: '最小值' }
@@ -50,13 +77,14 @@ export function getOptions(data) {
         }
       },
       {
-        name: '最低气温',
         type: 'line',
+        name: '最低气温',
         data: minTempData,
-        label: {
-          formatter: '{b} °C'
-        },
         markPoint: {
+          label: {
+            formatter: '{c}°C'
+          },
+          symbolSize: 60,
           data: [
             { type: 'max', name: '最大值' },
             { type: 'min', name: '最小值' }
@@ -64,5 +92,5 @@ export function getOptions(data) {
         }
       }
     ]
-  };
+  });
 }
