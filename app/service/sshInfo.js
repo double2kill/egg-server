@@ -13,7 +13,7 @@ class SSHInfoService extends Service {
   }
 
   JSONMap(data) {
-    const info = data.split('\r\n').filter(item => !!item).map(item => {
+    const info = data.split('\n').filter(item => !!item).map(item => {
       const [ name, terminal, time1, time2, ip ] = item.split(' ');
       const time = moment(`${time1} ${time2}`).valueOf();
       return {
