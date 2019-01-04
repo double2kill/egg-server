@@ -16,4 +16,7 @@ module.exports = app => {
 
   // 天气服务api
   router.get('/v0.1/weathers', controller.weathers.index);
+
+  // 用户登陆api
+  router.get('/v0.1/sshInfo', controller.sshInfo.index);
 };
