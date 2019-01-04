@@ -41,7 +41,7 @@ export function getOptions(data) {
 
   return formatMediaOption({
     title: {
-      text: '大田历史变化',
+      text: '大田历史气温变化',
     },
     tooltip: {
       trigger: 'axis',

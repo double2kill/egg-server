@@ -1,40 +1,72 @@
 <template>
-  <!--为echarts准备一个具备大小的容器dom-->
-  <div id="sshInfo" style="max-width: 800px; width: 100%; height: 400px; margin: 0 auto;"></div>
+  <div>
+    用户
+    <el-select v-model="user" clearable placeholder="请选择用户" @change="handleSelect">
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+    </el-select>
+    <!--为echarts准备一个具备大小的容器dom-->
+    <div id="sshInfo" style="max-width: 800px; width: 100%; height: 400px; margin: 0 auto;"></div>
+  </div>
 </template>
 
 <script>
 import echarts from "echarts";
 import { getOptions } from "./helper";
 import axios from "axios";
-import URL from '../../constants'
+import URL from "../../constants";
 
 export default {
   name: "",
   data() {
     return {
       charts: "",
-      opinion: [],
-      opinionData: []
+      options: [
+        {
+          value: 'liuchen',
+          label: 'liuchen'
+        },
+        {
+          value: 'root',
+          label: 'root'
+        },
+        {
+          value: 'ftpuser',
+          label: 'ftpuser'
+        },
+      ],
+      user: "liuchen"
     };
   },
   methods: {
-    drawEcharts(id, data) {
+    drawEcharts(id, data, user) {
       this.charts = echarts.init(document.getElementById(id));
-      const options = getOptions(data || []);
+      const options = getOptions(data || [], user);
       this.charts.setOption(options);
+    },
+    handleSelect(user) {
+      if(user) {
+        this.getInfo(user);
+      }
+    },
+    async getInfo (user) {
+      const result = await axios.get(`${URL.host}/v0.1/sshInfo`, {
+        params: {
+          user
+        }
+      });
+      this.drawEcharts("sshInfo", result.data, user);
     }
   },
   async created() {
-    const result = await axios.get(`${URL.host}/v0.1/sshInfo`);
-    this.drawEcharts("sshInfo", result.data);
-  },
+    const user = 'liuchen'
+    await this.getInfo(user)
+  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
+/* h3 {
   margin: 40px 0 0;
 }
 ul {
@@ -47,5 +79,5 @@ li {
 }
 a {
   color: #42b983;
-}
+} */
 </style>

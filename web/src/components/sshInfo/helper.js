@@ -20,18 +20,18 @@ function getVirtulData(data) {
   return data;
 }
 
-export function getOptions(data) {
+export function getOptions(data, user) {
 
 const option = {
     title: {
         top: 30,
         left: 'center',
-        text: 'liuchen的ssh信息'
+        text: `${user}的ssh登陆频率图`
     },
     tooltip : {},
     visualMap: {
         min: 0,
-        max: 5,
+        max: 10,
         type: 'piecewise',
         orient: 'horizontal',
         left: 'center',
@@ -49,7 +49,14 @@ const option = {
         itemStyle: {
             normal: {borderWidth: 0.5}
         },
-        yearLabel: {show: false}
+        yearLabel: {show: false},
+        monthLabel: {
+            nameMap: 'cn',
+        },
+        dayLabel: {
+            firstDay: 1,
+            nameMap: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+        },
     },
     series: {
         type: 'heatmap',
