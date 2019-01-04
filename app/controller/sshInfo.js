@@ -5,7 +5,8 @@ const Controller = require('egg').Controller;
 class SSHInfoController extends Controller {
   async index() {
     const { ctx } = this;
-    const data = await ctx.service.sshInfo.getInfo();
+    const { user } = ctx.req.query;
+    const data = await ctx.service.sshInfo.getInfo(user);
     this.ctx.body = data;
   }
 }

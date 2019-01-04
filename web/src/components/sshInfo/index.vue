@@ -1,6 +1,6 @@
 <template>
   <!--为echarts准备一个具备大小的容器dom-->
-  <div id="main" style="max-width: 800px; width: 100%; height: 400px; margin: 0 auto;"></div>
+  <div id="sshInfo" style="max-width: 800px; width: 100%; height: 400px; margin: 0 auto;"></div>
 </template>
 
 <script>
@@ -26,8 +26,8 @@ export default {
     }
   },
   async created() {
-    const result = await axios.get(`${URL.host}/v0.1/weathers`);
-    this.drawEcharts("main", result.data);
+    const result = await axios.get(`${URL.host}/v0.1/sshInfo`);
+    this.drawEcharts("sshInfo", result.data);
   },
 };
 </script>
