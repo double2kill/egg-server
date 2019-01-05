@@ -72,7 +72,6 @@ export function getOptions(data) {
           symbolSize: 60,
           data: [
             { type: 'max', name: '最大值' },
-            { type: 'min', name: '最小值' }
           ]
         }
       },
@@ -86,7 +85,6 @@ export function getOptions(data) {
           },
           symbolSize: 60,
           data: [
-            { type: 'max', name: '最大值' },
             { type: 'min', name: '最小值' }
           ]
         }
