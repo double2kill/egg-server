@@ -19,4 +19,8 @@ module.exports = app => {
 
   // 用户登陆api
   router.get('/v0.1/sshInfo', controller.sshInfo.index);
+
+  // graphql接口
+  router.get('/v0.1/graphql', controller.graphql.index);
+  router.post('/v0.1/graphql', controller.graphql.index);
 };
