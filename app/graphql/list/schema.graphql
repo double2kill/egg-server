@@ -1,0 +1,28 @@
+type weatherJob {
+  id: ID!
+  remark: String
+}
+
+type JobList {
+  count: Int,
+  items: [weatherJob]
+}
+
+type Query {
+  weatherJobs(limit: Int, offset: Int): JobList
+}
+
+type deleteResult {
+  ok: Int,
+  n: Int
+}
+
+type Mutation {
+  createJob(
+    remark: String!
+    cityName: String!
+    users: [String]!
+  ): weatherJob,
+  deleteJob(id: ID!): weatherJob,
+  deleteAllJobs: deleteResult,
+}

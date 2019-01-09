@@ -12,7 +12,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_15959262317_1019';
 
   // add your config here
-  config.middleware = [ 'errorHandler' ];
+  config.middleware = [ 'errorHandler', 'graphql' ];
 
   // // 只对 /api 前缀的 url 路径生效
   // config.errorHandler = {
@@ -40,5 +40,9 @@ module.exports = appInfo => {
 
   exports.mongoose = moreConfig.mongoose;
 
+  exports.graphql = {
+    router: '/graphql',
+    graphiql: true,
+  };
   return config;
 };
