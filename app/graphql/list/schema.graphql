@@ -1,6 +1,8 @@
 type weatherJob {
   id: ID!
-  remark: String
+  cityName: String,
+  remark: String,
+  users: [String]
 }
 
 type JobList {
@@ -9,7 +11,8 @@ type JobList {
 }
 
 type Query {
-  weatherJobs(limit: Int, offset: Int): JobList
+  weatherJobs(limit: Int, offset: Int): JobList,
+  hello: String
 }
 
 type deleteResult {

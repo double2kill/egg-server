@@ -10,10 +10,12 @@ Vue.use(ElementUI);
 // 引入vue-router
 import VueRouter from 'vue-router'
 import router from './route'
+import { createProvider } from './vue-apollo'
 
 Vue.use(VueRouter)
 
 new Vue({
   router,
-  render: h => h(App),
+  apolloProvider: createProvider(),
+  render: h => h(App)
 }).$mount('#app')
