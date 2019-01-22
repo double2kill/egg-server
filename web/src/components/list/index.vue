@@ -1,5 +1,11 @@
 <template>
   <div>
+
+    <div style="margin: 15px 0;text-align: left;">
+      <el-button size="medium" @click="fetchData()">刷新</el-button>
+      <el-button size="medium" @click="handleAdd()" type="primary">新增</el-button>
+    </div>
+
     <el-table
       border
       :data="weatherJobs.items"
@@ -73,7 +79,7 @@ export default {
           }
         }`,
         mutation: {
-          deleteJob(id = "5c35aa0f6bee3b1908d6b6b0") { id }
+          deleteJob(id) { id }
         }
       }
     },
@@ -85,9 +91,6 @@ export default {
       this.pagination.currentPage = page
       await this.$apollo.queries.weatherJobs.refetch({ limit, offset })
     },
-    // handleEdit(data) {
-
-    // },
     async handleDelete({ id }) {
       // 考虑两个请求是否要统一起来
       await this.$apollo.mutate({
@@ -102,7 +105,23 @@ export default {
         },
       })
       // 是否要加入事务的处理
+      await this.fetchData()
+    },
+    async fetchData() {
       await this.handlePageChange(this.pagination.currentPage)
+    },
+    handleAdd() {
+      this.$router.push({
+        path: "/list/tableAdd"
+      });
+    },
+    handleEdit(item) {
+      this.$router.push({
+        name: "list/table",
+        params: {
+          id: item.id
+        }
+      });
     }
   }
 }

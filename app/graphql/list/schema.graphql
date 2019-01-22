@@ -11,11 +11,11 @@ type JobList {
 }
 
 type Query {
-  weatherJobs(limit: Int, offset: Int): JobList,
+  weatherJobs(limit: Int, offset: Int, id: ID): JobList,
   hello: String
 }
 
-type deleteResult {
+type result {
   ok: Int,
   n: Int
 }
@@ -26,6 +26,12 @@ type Mutation {
     cityName: String!
     users: [String]!
   ): weatherJob,
+  editJob(
+    remark: String!
+    cityName: String!
+    users: [String]!,
+    id: ID!
+  ): result,
   deleteJob(id: ID!): weatherJob,
-  deleteAllJobs: deleteResult,
+  deleteAllJobs: result,
 }
