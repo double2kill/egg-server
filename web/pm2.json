@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "egg-server_web",
+            "script": "npm",
+            "args" : "run httpserver"
+        }
+    ]
+}

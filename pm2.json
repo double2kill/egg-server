@@ -1,0 +1,9 @@
+{
+    "apps": [
+        {
+            "name": "egg-server_server",
+            "script": "npm",
+            "args" : "run dev"
+        }
+    ]
+}
