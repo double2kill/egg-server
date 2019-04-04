@@ -22,8 +22,12 @@ export default {
       charts: "",
       options: [
         {
-          value: 'liuchen',
+          value: '刘晨',
           label: 'liuchen'
+        },
+        {
+          value: '连学军',
+          label: 'Mikelian'
         },
         {
           value: 'root',
