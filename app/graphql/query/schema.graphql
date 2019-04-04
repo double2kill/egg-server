@@ -1,0 +1,5 @@
+type Query {
+  weatherJobs(limit: Int, offset: Int, id: ID): JobList,
+  hello: String,
+  collections(limit: Int, offset: Int, id: ID): collections
+}

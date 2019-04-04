@@ -7,6 +7,7 @@
     <el-menu-item index="/weather">天气</el-menu-item>
     <el-menu-item index="/sshInfo">ssh信息</el-menu-item>
     <el-menu-item index="/list">list</el-menu-item>
+    <el-menu-item index="/mongodb">mongodb</el-menu-item>
     <el-menu-item index="/weather" disabled>爬虫</el-menu-item>
   </el-menu>
 </template>

@@ -1,0 +1,15 @@
+type Mutation {
+  createJob(
+    remark: String!
+    cityName: String!
+    users: [String]!
+  ): weatherJob,
+  editJob(
+    remark: String!
+    cityName: String!
+    users: [String]!,
+    id: ID!
+  ): result,
+  deleteJob(id: ID!): weatherJob,
+  deleteAllJobs: result,
+}

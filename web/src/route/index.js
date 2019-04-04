@@ -10,6 +10,7 @@ const routes = [
   { path: '/list', component: List },
   { path: '/list/tableAdd', component: Form },
   { path: '/list/table/:id', name: 'list/table', component: Form },
+  { path: '/mongodb', name: 'mongodb', component: Form },
 ]
 
 export default new VueRouter({
