@@ -1,3 +1,4 @@
-type collections {
+type Collection {
   name: String!
+  type: String!
 }
