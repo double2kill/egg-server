@@ -32,19 +32,29 @@
           content: '确定金鸡亭的房子，交5万定金',
           timestamp: '2019-4-19',
           size: 'large',
-          type: 'primary',
-          icon: 'el-icon-more'
+          icon: "el-icon-check",
+          color: '#0bbd87'
         }, {
           content: '交完全部定金',
           timestamp: '2019-4-23',
+          size: 'large',
+          icon: "el-icon-check",
+          color: '#0bbd87'
+        }, {
+          content: '交中介费1万',
+          timestamp: '2019-4-23',
+          size: 'large',
+          icon: "el-icon-check",
           color: '#0bbd87'
         }, {
           content: '交完首付',
-          timestamp: '2018-05-25',
-          size: 'large'
+          timestamp: '2019-5-25',
+          size: 'large',
+          icon: 'el-icon-more',
+          color: '#E6A23C'
         }, {
           content: '所有手续完成',
-          timestamp: '2018-06-15'
+          timestamp: '2019-6-15'
         }]
       };
     }
@@ -58,7 +68,7 @@
   margin: 0 auto;
 }
 .radio {
-  line-height: 40px;
-  height: 40px;
+  line-height: 60px;
+  height: 60px;
 }
 </style>

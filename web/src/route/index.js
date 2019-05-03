@@ -4,6 +4,7 @@ import SSHInfo from "../components/sshInfo/index.vue";
 import List from "../components/list/index.vue";
 import Form from "../components/list/Form.vue";
 import Timeline from "../components/timeLine/index.vue";
+import TodoList from "../components/todoList/index.vue";
 
 const routes = [
   { path: '/weather', component: Weather, displayName: '天气' },
@@ -12,8 +13,10 @@ const routes = [
   { path: '/list/tableAdd', component: Form },
   { path: '/list/table/:id', name: 'list/table', component: Form },
   { path: '/timeLine', name: 'timeLine', component: Timeline, displayName: '时间线' },
+  { path: '/todoList', name: 'todoList', component: TodoList, displayName: 'Todo' },
 ]
 
+// export routes with displayName
 export const menuRoutes = routes
   .filter(route => route.displayName)
   .map(route => ({
