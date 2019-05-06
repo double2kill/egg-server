@@ -47,6 +47,42 @@
           icon: "el-icon-check",
           color: '#0bbd87'
         }, {
+          content: '去装修卖场确定装修方案',
+          timestamp: '2019-5-4',
+          size: 'large',
+          icon: "el-icon-check",
+          color: '#0bbd87'
+        }, {
+          content: '拆旧橱柜，门，沙发',
+          size: 'large',
+          icon: "el-icon-question",
+          color: '#0bbd87'
+        }, {
+          content: '装门',
+          size: 'large',
+          icon: "el-icon-question",
+          color: '#0bbd87'
+        }, {
+          content: '装橱柜',
+          size: 'large',
+          icon: "el-icon-question",
+          color: '#0bbd87'
+        }, {
+          content: '刷墙',
+          size: 'large',
+          icon: "el-icon-question",
+          color: '#0bbd87'
+        }, {
+          content: '装灯',
+          size: 'large',
+          icon: "el-icon-question",
+          color: '#0bbd87'
+        }, {
+          content: '换新床垫',
+          size: 'large',
+          icon: "el-icon-question",
+          color: '#0bbd87'
+        }, {
           content: '交完首付',
           timestamp: '2019-5-25',
           size: 'large',

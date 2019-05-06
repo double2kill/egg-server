@@ -45,4 +45,10 @@ export default {
   max-width: 800px;
   display: inline-block;
 }
+
+@media screen and (max-width: 700px) {
+  .el-menu-item:not(.is-active) {
+    display: none;
+  }
+}
 </style>
