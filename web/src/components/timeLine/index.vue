@@ -16,7 +16,9 @@
         :type="activity.type"
         :color="activity.color"
         :size="activity.size"
-        :timestamp="activity.timestamp">
+        :timestamp="activity.timestamp"
+        placement="top"
+        >
         {{activity.content}}
       </el-timeline-item>
     </el-timeline>
@@ -53,7 +55,20 @@
           icon: "el-icon-check",
           color: '#0bbd87'
         }, {
+          content: '和房东过户，交税费2.5%',
+          timestamp: '2019-5-13',
+          size: 'large',
+          icon: "el-icon-check",
+          color: '#0bbd87'
+        }, {
           content: '拆旧橱柜，门，沙发',
+          timestamp: '2019-5-17',
+          size: 'large',
+          icon: "el-icon-question",
+          color: '#0bbd87'
+        }, {
+          content: '过水电',
+          timestamp: '2019-5-20',
           size: 'large',
           icon: "el-icon-question",
           color: '#0bbd87'
