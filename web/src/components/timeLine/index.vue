@@ -10,7 +10,7 @@
 
     <el-timeline :reverse="reverse">
       <el-timeline-item
-        v-for="(activity, index) in activities2"
+        v-for="(activity, index) in activities"
         :key="index"
         :icon="activity.icon"
         :type="activity.type"
@@ -30,7 +30,7 @@
     data() {
       return {
         reverse: true,
-        activities2: [{
+        activities: [{
           content: '确定金鸡亭的房子，交5万定金',
           timestamp: '2019-4-19',
           size: 'large',
@@ -64,7 +64,13 @@
           content: '拆旧橱柜，门，沙发',
           timestamp: '2019-5-17',
           size: 'large',
-          icon: "el-icon-question",
+          icon: "el-icon-check",
+          color: '#0bbd87'
+        }, {
+          content: '清洗空调，冰箱',
+          timestamp: '2019-5-18',
+          size: 'large',
+          icon: "el-icon-check",
           color: '#0bbd87'
         }, {
           content: '过水电',
@@ -73,17 +79,25 @@
           icon: "el-icon-question",
           color: '#0bbd87'
         }, {
-          content: '装门',
+          content: '装吊顶，清洗窗户',
+          timestamp: '2019-5-26',
+          size: 'large',
+          icon: "el-icon-check",
+          color: '#0bbd87'
+        }, {
+          content: '装门,换锁',
+          timestamp: '2019-5-28',
+          size: 'large',
+          icon: "el-icon-check",
+          color: '#0bbd87'
+        }, {
+          content: '刷墙',
+          timestamp: '2019-5-30',
           size: 'large',
           icon: "el-icon-question",
           color: '#0bbd87'
         }, {
           content: '装橱柜',
-          size: 'large',
-          icon: "el-icon-question",
-          color: '#0bbd87'
-        }, {
-          content: '刷墙',
           size: 'large',
           icon: "el-icon-question",
           color: '#0bbd87'
