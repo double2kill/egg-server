@@ -1,35 +1,35 @@
 <template>
   <!--为echarts准备一个具备大小的容器dom-->
-  <div id="main" style="max-width: 400px; width: 100%;height: 400px; margin: 0 auto;"></div>
+  <div id="main" style="max-width: 400px; width: 100%;height: 400px; margin: 0 auto;" />
 </template>
 
 <script>
-import echarts from "echarts";
-import { getOptions } from "./helper";
-import axios from "axios";
+import echarts from 'echarts'
+import axios from 'axios'
 import URL from '../constants'
+import { getOptions } from './helper'
 
 export default {
-  name: "",
+  name: '',
   data() {
     return {
-      charts: "",
+      charts: '',
       opinion: [],
       opinionData: []
-    };
-  },
-  methods: {
-    drawEcharts(id, data) {
-      this.charts = echarts.init(document.getElementById(id));
-      const options = getOptions(data || []);
-      this.charts.setOption(options);
     }
   },
   async created() {
-    const result = await axios.get(`${URL.host}/v0.1/weathers`);
-    this.drawEcharts("main", result.data);
+    const result = await axios.get(`${URL.host}/v0.1/weathers`)
+    this.drawEcharts('main', result.data)
   },
-};
+  methods: {
+    drawEcharts(id, data) {
+      this.charts = echarts.init(document.getElementById(id))
+      const options = getOptions(data || [])
+      this.charts.setOption(options)
+    }
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

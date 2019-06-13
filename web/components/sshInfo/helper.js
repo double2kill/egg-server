@@ -18,7 +18,7 @@ function getVirtulData(data) {
       return result
     }
   }, [])
-  return data;
+  return data
 }
 
 export function getOptions(data, user) {
@@ -54,18 +54,18 @@ export function getOptions(data, user) {
       },
       yearLabel: { show: false },
       monthLabel: {
-        nameMap: 'cn',
+        nameMap: 'cn'
       },
       dayLabel: {
         firstDay: 1,
         nameMap: ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
-      },
+      }
     },
     series: {
       type: 'heatmap',
       coordinateSystem: 'calendar',
       data: getVirtulData(data)
     }
-  };
+  }
   return option
 }

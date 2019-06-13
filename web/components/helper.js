@@ -4,7 +4,7 @@ const PCOption = {
       show: true,
       feature: {
         dataView: { readOnly: false },
-        restore: {},
+        restore: {}
       }
     }
   }
@@ -16,7 +16,7 @@ const mobileOption = {
   },
   option: {
     toolbox: {
-      show: false,
+      show: false
     },
     legend: {
       right: 10,
@@ -34,17 +34,16 @@ function formatMediaOption(option) {
 }
 
 export function getOptions(data) {
-
   const XData = data.map(item => item.date)
   const maxTempData = data.map(item => item.statistics.max_temp)
   const minTempData = data.map(item => item.statistics.min_temp)
 
   return formatMediaOption({
     title: {
-      text: '大田历史气温变化',
+      text: '大田历史气温变化'
     },
     tooltip: {
-      trigger: 'axis',
+      trigger: 'axis'
     },
     legend: {
       data: ['最高气温', '最低气温']
@@ -71,7 +70,7 @@ export function getOptions(data) {
           },
           symbolSize: 60,
           data: [
-            { type: 'max', name: '最大值' },
+            { type: 'max', name: '最大值' }
           ]
         }
       },
@@ -90,5 +89,5 @@ export function getOptions(data) {
         }
       }
     ]
-  });
+  })
 }

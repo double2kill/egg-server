@@ -4,10 +4,10 @@
     <div class="form">
       <label for="field-name" class="label">Name</label>
       <input
+        id="field-name"
         v-model="name"
         placeholder="Type a name"
         class="input"
-        id="field-name"
       >
     </div>
 
@@ -18,16 +18,24 @@
     >
       <template slot-scope="{ result: { loading, error, data } }">
         <!-- Loading -->
-        <div v-if="loading" class="loading apollo">Loading...</div>
+        <div v-if="loading" class="loading apollo">
+          Loading...
+        </div>
 
         <!-- Error -->
-        <div v-else-if="error" class="error apollo">An error occured</div>
+        <div v-else-if="error" class="error apollo">
+          An error occured
+        </div>
 
         <!-- Result -->
-        <div v-else-if="data" class="result apollo">{{ data.hello }}</div>
+        <div v-else-if="data" class="result apollo">
+          {{ data.hello }}
+        </div>
 
         <!-- No result -->
-        <div v-else class="no-result apollo">No result :(</div>
+        <div v-else class="no-result apollo">
+          No result :(
+        </div>
       </template>
     </ApolloQuery>
 
@@ -64,7 +72,7 @@
       @done="newMessage = ''"
     >
       <template slot-scope="{ mutate }">
-        <form v-on:submit.prevent="formValid && mutate()">
+        <form @submit.prevent="formValid && mutate()">
           <label for="field-message">Message</label>
           <input
             id="field-message"
@@ -82,7 +90,7 @@
         :key="file.id"
         class="image-item"
       >
-        <img :src="`${$filesRoot}/${file.path}`" class="image"/>
+        <img :src="`${$filesRoot}/${file.path}`" class="image">
       </div>
     </div>
 
@@ -104,48 +112,48 @@ import FILES from '../graphql/Files.gql'
 import UPLOAD_FILE from '../graphql/UploadFile.gql'
 
 export default {
-  data () {
+  data() {
     return {
       name: 'Anne',
-      newMessage: '',
+      newMessage: ''
     }
   },
 
   apollo: {
-    files: FILES,
+    files: FILES
   },
 
   computed: {
-    formValid () {
+    formValid() {
       return this.newMessage
-    },
+    }
   },
 
   methods: {
-    onMessageAdded (previousResult, { subscriptionData }) {
+    onMessageAdded(previousResult, { subscriptionData }) {
       return {
         messages: [
           ...previousResult.messages,
-          subscriptionData.data.messageAdded,
-        ],
+          subscriptionData.data.messageAdded
+        ]
       }
     },
 
-    async onUploadImage ({ target }) {
+    async onUploadImage({ target }) {
       if (!target.validity.valid) return
       await this.$apollo.mutate({
         mutation: UPLOAD_FILE,
         variables: {
-          file: target.files[0],
+          file: target.files[0]
         },
         update: (store, { data: { singleUpload } }) => {
           const data = store.readQuery({ query: FILES })
           data.files.push(singleUpload)
           store.writeQuery({ query: FILES, data })
-        },
+        }
       })
     }
-  },
+  }
 }
 </script>
 

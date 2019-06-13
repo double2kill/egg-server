@@ -1,17 +1,21 @@
 <template>
   <el-form ref="form" :model="form" label-width="80px">
     <el-form-item label="备注">
-      <el-input v-model="form.remark"></el-input>
+      <el-input v-model="form.remark" />
     </el-form-item>
     <el-form-item label="城市名称">
-      <el-input v-model="form.cityName"></el-input>
+      <el-input v-model="form.cityName" />
     </el-form-item>
     <el-form-item label="用户">
-      <el-input type="textarea" v-model="form.users"></el-input>
+      <el-input v-model="form.users" type="textarea" />
     </el-form-item>
     <el-form-item>
-      <el-button @click="handleBack">返回</el-button>
-      <el-button type="primary" @click="onSubmit">提交</el-button>
+      <el-button @click="handleBack">
+        返回
+      </el-button>
+      <el-button type="primary" @click="onSubmit">
+        提交
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -20,16 +24,16 @@
 import gql from 'graphql-tag'
 
 export default {
-  name: "web-form",
+  name: 'WebForm',
   data() {
     return {
       id: '',
       form: {
-        remark: "",
-        cityName: "",
-        users: "",
+        remark: '',
+        cityName: '',
+        users: ''
       }
-    };
+    }
   },
   apollo: {
     weatherJobs() {
@@ -50,26 +54,26 @@ export default {
           deleteJob(id) { id }
         }
       }
-    },
+    }
   },
   created() {
-    this.fetchData();
+    this.fetchData()
   },
   methods: {
     async onSubmit() {
       this.form.users = ['刘晨']
-      if(this.id){
+      if (this.id) {
         await this.$apollo.mutate({
         // Query
-        mutation: gql`mutation ($remark: String!, $cityName: String!, $users: [String]!, $id: ID!) {
+          mutation: gql`mutation ($remark: String!, $cityName: String!, $users: [String]!, $id: ID!) {
             editJob(remark: $remark, cityName: $cityName, users: $users, id: $id) {
               ok
             }
           }`,
           variables: {
             ...this.form,
-            id: this.id,
-          },
+            id: this.id
+          }
         })
       } else {
         await this.$apollo.mutate({
@@ -79,23 +83,23 @@ export default {
               id
             }
           }`,
-          variables: this.form,
+          variables: this.form
         })
       }
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     handleBack() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     async fetchData() {
-      const { params } = this.$router.history.current;
+      const { params } = this.$router.history.current
       if (params.id === undefined) {
-        return;
+        return
       }
       this.id = params.id
       const { data: { weatherJobs } } = await this.$apollo.queries.weatherJobs.refetch({ id: params.id })
-      this.form = weatherJobs.items[0];
+      this.form = weatherJobs.items[0]
     }
   }
-};
+}
 </script>

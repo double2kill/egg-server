@@ -1,48 +1,57 @@
 <template>
   <div>
-
     <div style="margin: 15px 0;text-align: left;">
-      <el-button size="medium" @click="fetchData()">刷新</el-button>
-      <el-button size="medium" @click="handleAdd()" type="primary">新增</el-button>
+      <el-button size="medium" @click="fetchData()">
+        刷新
+      </el-button>
+      <el-button size="medium" type="primary" @click="handleAdd()">
+        新增
+      </el-button>
     </div>
 
     <el-table
       border
       :data="weatherJobs.items"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column
         prop="id"
-        label="id">
-      </el-table-column>
+        label="id"
+      />
       <el-table-column
         prop="remark"
-        label="备注">
-      </el-table-column>
+        label="备注"
+      />
       <el-table-column
         prop="users"
-        label="用户">
-      </el-table-column>
+        label="用户"
+      />
       <el-table-column
         prop="cityName"
-        label="城市">
-      </el-table-column>
+        label="城市"
+      />
       <el-table-column
         fixed="right"
         label="操作"
-        width="100">
+        width="100"
+      >
         <template slot-scope="scope">
-          <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
-          <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button type="text" size="small" @click="handleEdit(scope.row)">
+            编辑
+          </el-button>
+          <el-button type="text" size="small" @click="handleDelete(scope.row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination
-      @current-change="handlePageChange"
       layout="prev, pager, next"
       :current-page="pagination.currentPage"
       :page-size="pagination.pageSize"
-      :total="weatherJobs.count">
-    </el-pagination>
+      :total="weatherJobs.count"
+      @current-change="handlePageChange"
+    />
   </div>
 </template>
 
@@ -82,7 +91,7 @@ export default {
           deleteJob(id) { id }
         }
       }
-    },
+    }
   },
   methods: {
     async handlePageChange(page) {
@@ -101,8 +110,8 @@ export default {
           }
         }`,
         variables: {
-          id,
-        },
+          id
+        }
       })
       // 是否要加入事务的处理
       await this.fetchData()
@@ -112,16 +121,16 @@ export default {
     },
     handleAdd() {
       this.$router.push({
-        path: "/list/tableAdd"
-      });
+        path: '/list/tableAdd'
+      })
     },
     handleEdit(item) {
       this.$router.push({
-        name: "list/table",
+        name: 'list/table',
         params: {
           id: item.id
         }
-      });
+      })
     }
   }
 }
