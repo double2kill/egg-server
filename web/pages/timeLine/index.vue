@@ -94,7 +94,7 @@ export default {
           content: '过水电',
           timestamp: '2019-5-27',
           size: 'large',
-          icon: 'el-icon-question',
+          icon: 'el-icon-check',
           color: '#0bbd87'
         },
         {
@@ -136,18 +136,19 @@ export default {
           content: '装台面',
           timestamp: '2019-6-14',
           size: 'large',
+          icon: 'el-icon-check',
+          color: '#0bbd87'
+        },
+        {
+          content: '换新床垫',
+          timestamp: '2019-6-28',
+          size: 'large',
           icon: 'el-icon-question',
           color: '#0bbd87'
         },
         {
           content: '所有手续完成',
-          timestamp: '2019-6-15'
-        },
-        {
-          content: '换新床垫',
-          size: 'large',
-          icon: 'el-icon-question',
-          color: '#0bbd87'
+          timestamp: '2019-6-28'
         }
       ]
     }
