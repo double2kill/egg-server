@@ -143,7 +143,7 @@ export default {
           content: '换新床垫',
           timestamp: '2019-6-28',
           size: 'large',
-          icon: 'el-icon-question',
+          icon: 'el-icon-check',
           color: '#0bbd87'
         },
         {

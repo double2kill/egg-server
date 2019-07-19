@@ -1,8 +1,19 @@
 <template>
   <div>
+    <homeMenu />
     <nuxt />
   </div>
 </template>
+
+<script>
+import homeMenu from './menu'
+
+export default {
+  components: {
+    homeMenu
+  }
+}
+</script>
 
 <style>
 html {
