@@ -22,7 +22,14 @@ const mobileOption = {
       right: 10,
       top: '15%',
       orient: 'vertical'
-    }
+    },
+    dataZoom: [
+      {
+        type: 'slider',
+        xAxisIndex: 0,
+        filterMode: 'empty'
+      }
+    ]
   }
 }
 
@@ -64,6 +71,7 @@ export function getOptions(data) {
         type: 'line',
         name: '最高气温',
         data: maxTempData,
+        smooth: true,
         markPoint: {
           label: {
             formatter: '{c}°C'
@@ -78,6 +86,7 @@ export function getOptions(data) {
         type: 'line',
         name: '最低气温',
         data: minTempData,
+        smooth: true,
         markPoint: {
           label: {
             formatter: '{c}°C'

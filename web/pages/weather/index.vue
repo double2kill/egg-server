@@ -6,8 +6,8 @@
 <script>
 import echarts from 'echarts'
 import axios from 'axios'
-import URL from '@/constants'
 import { getOptions } from './helper'
+import URL from '@/constants'
 
 export default {
   name: '',
@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     drawEcharts(id, data) {
-      this.charts = echarts.init(document.getElementById(id))
+      this.charts = echarts.init(document.getElementById(id), 'light')
       const options = getOptions(data || [])
       this.charts.setOption(options)
     }

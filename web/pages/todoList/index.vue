@@ -3,9 +3,9 @@
     <el-tree
       ref="tree"
       :data="data"
+      :default-checked-keys="initialCheckedKeys"
       show-checkbox
       node-key="id"
-      :default-checked-keys="initialCheckedKeys"
     >
       <span slot-scope="{ node }">
         <span :class="{ 'line-through': node.checked }">{{
@@ -13,7 +13,7 @@
         }}</span>
       </span>
     </el-tree>
-    <el-button type="primary" @click="handleClick">
+    <el-button @click="handleClick" type="primary">
       保存
     </el-button>
   </div>

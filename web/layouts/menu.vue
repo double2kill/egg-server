@@ -1,9 +1,9 @@
 <template>
   <el-menu
-    class="el-menu-demo"
-    mode="horizontal"
     :default-active="defaultMenu"
     @select="handleSelect"
+    class="el-menu-demo"
+    mode="horizontal"
   >
     <el-menu-item index="/">
       首页

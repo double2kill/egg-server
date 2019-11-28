@@ -1,7 +1,7 @@
 <template>
   <div>
     用户
-    <el-select v-model="user" clearable placeholder="请选择用户" @change="handleSelect">
+    <el-select v-model="user" @change="handleSelect" clearable placeholder="请选择用户">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
     <!--为echarts准备一个具备大小的容器dom-->
