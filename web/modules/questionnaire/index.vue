@@ -1,9 +1,9 @@
 <template>
   <div class="md-example-child md-example-child-check md-example-child-check-4">
-    <md-field title="复选列表">
+    <md-field :title="title">
       <md-check-list
-        v-model="favorites"
-        :options="fruits"
+        v-model="checked"
+        :options="questions"
         icon-position="left"
       />
     </md-field>
@@ -15,23 +15,19 @@ import { Field, CheckList } from 'mand-mobile'
 
 export default {
   name: 'CheckDemo',
-  /* DELETE */
-  title: '复选列表',
-  titleEnUS: 'Check list',
-  /* DELETE */
   components: {
     [Field.name]: Field,
     [CheckList.name]: CheckList
   },
   data() {
     return {
-      favorites: ['apple'],
-      fruits: [
-        { value: 'watermelon', label: '西瓜', brief: '选项摘要描述' },
-        { value: 'apple', label: '苹果', brief: '选项摘要描述' },
-        { value: 'banana', label: '香蕉', brief: '选项摘要描述' },
-        { value: 'orange', label: '橙子', brief: '选项摘要描述' },
-        { value: 'tomato', label: '西红柿', brief: '选项摘要描述', disabled: true }
+      title: '问卷测试',
+      checked: ['1'],
+      questions: [
+        { value: '1', brief: '1.选项摘要描述选项摘要描述选项摘要描述选项摘要描述选项摘要描述选项摘要描述' },
+        { value: '2', brief: '2.选项摘要描述' },
+        { value: '3', brief: '3.选项摘要描述' },
+        { value: '4', brief: '4.选项摘要描述' }
       ]
     }
   }
