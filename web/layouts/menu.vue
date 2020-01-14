@@ -1,9 +1,9 @@
 <template>
   <el-menu
     :default-active="defaultMenu"
-    @select="handleSelect"
     class="el-menu-demo"
     mode="horizontal"
+    @select="handleSelect"
   >
     <el-menu-item index="/">
       首页
@@ -27,7 +27,7 @@ export default {
     const { path } = history.current
     return {
       defaultMenu: path,
-      menuRoutes: options.routes
+      menuRoutes: options.routes.filter(route => route.name !== 'index')
     }
   },
   methods: {
