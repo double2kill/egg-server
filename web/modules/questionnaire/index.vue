@@ -1,42 +1,37 @@
 <template>
-  <div class="md-example-child md-example-child-check md-example-child-check-4">
-    <md-field :title="title">
-      <md-check-list
-        v-model="checked"
-        :options="questions"
-        icon-position="left"
-      />
-    </md-field>
-  </div>
+  <Form v-if="show" :show-result="showResult" />
+  <Result v-else :selected-character-list="selectedCharacterList" />
 </template>
 
 <script>
-import { Field, CheckList } from 'mand-mobile'
+import Form from './Form'
+import Result from './Result'
+import data from './data'
+const { questions } = data
 
 export default {
   name: 'CheckDemo',
   components: {
-    [Field.name]: Field,
-    [CheckList.name]: CheckList
+    Form,
+    Result
   },
   data() {
     return {
-      title: '问卷测试',
-      checked: ['1'],
-      questions: [
-        { value: '1', brief: '1.选项摘要描述选项摘要描述选项摘要描述选项摘要描述选项摘要描述选项摘要描述' },
-        { value: '2', brief: '2.选项摘要描述' },
-        { value: '3', brief: '3.选项摘要描述' },
-        { value: '4', brief: '4.选项摘要描述' }
-      ]
+      show: true,
+      selectedCharacterList: []
+    }
+  },
+  methods: {
+    showResult(checked) {
+      const selectedCharacterList = checked.map((item) => {
+        const checkedIndex = +item - 1
+        const character = questions[checkedIndex] && questions[checkedIndex].character
+        return character
+      })
+      this.selectedCharacterList = selectedCharacterList
+      this.show = false
     }
   }
 }
 
 </script>
-
-<style scoped>
-.md-example-child {
-    font-size: 28px;
-}
-</style>
