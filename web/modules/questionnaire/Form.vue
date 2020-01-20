@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       title,
-      checked: ['1'],
+      checked: [],
       questions,
       data: [{
         text: '保存',
