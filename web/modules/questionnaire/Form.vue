@@ -7,7 +7,7 @@
         icon-position="left"
       />
     </md-field>
-    <md-action-bar :actions="data" />
+    <md-action-bar :actions="data" size="small" />
   </div>
 </template>
 
@@ -43,9 +43,16 @@ export default {
       }]
     }
   },
+  mounted() {
+    const questionareData = localStorage.getItem('questionareData')
+    if (questionareData) {
+      this.checked = JSON.parse(questionareData)
+    }
+  },
   methods: {
     handleSave() {
-      Toast.succeed('Save')
+      localStorage.setItem('questionareData', JSON.stringify(this.checked))
+      Toast.succeed('保存成功')
     },
     handleSubmit() {
       this.showResult(this.checked)

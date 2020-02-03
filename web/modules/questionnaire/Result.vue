@@ -4,10 +4,10 @@
     <template v-for="item in maxCharactorInfo">
       <md-result-page
         :key="item.id"
-        class="customized"
-        img-url="//manhattan.didistatic.com/static/manhattan/do1_JX7bcfXqLpStKRv31xlp"
         :text="item.name"
         :subtext="item.description"
+        class="customized"
+        img-url="//manhattan.didistatic.com/static/manhattan/do1_JX7bcfXqLpStKRv31xlp"
       />
     </template>
   </div>
