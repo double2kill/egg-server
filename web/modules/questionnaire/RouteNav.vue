@@ -1,9 +1,9 @@
 <template>
   <div class="route-navigation">
     <md-button @click="selectPage('Form')" type="default" plain size="small">
-      开始测试
+      开始测评
     </md-button>
-    <md-button type="default" plain size="small">
+    <md-button @click="selectPage('Result')" type="default" plain size="small">
       查看结果
     </md-button>
   </div>
@@ -28,9 +28,9 @@ export default {
 
 <style>
   .route-navigation {
-    padding: 15px;
+    padding: 30px;
   }
   .md-button {
-    margin-bottom: 15px;
+    margin-bottom: 30px;
   }
 </style>

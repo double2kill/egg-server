@@ -26,17 +26,27 @@ export default {
       selectedCharacterList: []
     }
   },
+  mounted() {
+    const submitedQuestionareData = localStorage.getItem('submitedQuestionareData')
+    if (submitedQuestionareData) {
+      this.checked = JSON.parse(submitedQuestionareData)
+      this.setSelectedCharacterList(this.checked)
+    }
+  },
   methods: {
     selectPage(page) {
       this.current = page
     },
-    showResult(checked) {
+    setSelectedCharacterList(checked) {
       const selectedCharacterList = checked.map((item) => {
         const checkedIndex = +item - 1
         const character = questions[checkedIndex] && questions[checkedIndex].character
         return character
       })
       this.selectedCharacterList = selectedCharacterList
+    },
+    showResult(checked) {
+      this.setSelectedCharacterList(checked)
       this.current = 'Result'
     }
   }

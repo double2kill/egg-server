@@ -7,7 +7,7 @@
         icon-position="left"
       />
     </md-field>
-    <md-action-bar :actions="data" size="small" />
+    <md-action-bar :actions="data" class="action-bar" size="small" />
   </div>
 </template>
 
@@ -44,17 +44,19 @@ export default {
     }
   },
   mounted() {
-    const questionareData = localStorage.getItem('questionareData')
+    const questionareData = localStorage.getItem('savedQuestionareData')
     if (questionareData) {
       this.checked = JSON.parse(questionareData)
     }
   },
   methods: {
     handleSave() {
-      localStorage.setItem('questionareData', JSON.stringify(this.checked))
+      localStorage.setItem('savedQuestionareData', JSON.stringify(this.checked))
       Toast.succeed('保存成功')
     },
     handleSubmit() {
+      localStorage.setItem('savedQuestionareData', JSON.stringify(this.checked))
+      localStorage.setItem('submitedQuestionareData', JSON.stringify(this.checked))
       this.showResult(this.checked)
     }
   }
@@ -62,8 +64,29 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
 .md-example-child {
+  padding: 30px;
   padding-bottom: 140px;
+}
+.md-example-child .md-cell-item-body.multilines {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.md-example-child .md-cell-item-left {
+  margin-right: 20px;
+}
+
+.md-example-child .md-cell-item-brief{
+  margin-top: 0px;
+}
+
+.action-bar .md-button {
+  height: 64px;
+  line-height: 64px;
+  margin-bottom: 0px;
+}
+.action-bar .md-button-inner {
+  font-size:28px;
 }
 </style>

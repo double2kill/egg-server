@@ -7,7 +7,6 @@
         :text="item.name"
         :subtext="item.description"
         class="customized"
-        img-url="//manhattan.didistatic.com/static/manhattan/do1_JX7bcfXqLpStKRv31xlp"
       />
     </template>
   </div>
@@ -58,8 +57,17 @@ export default {
 
 </script>
 
-<style scoped>
+<style>
 .result-page{
   padding: 40px;
+}
+
+.result-page .md-result-image {
+  display: none;
+}
+
+.result-page .md-result-subtext {
+  text-align: left;
+  white-space:pre-wrap;
 }
 </style>
