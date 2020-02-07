@@ -23,6 +23,10 @@ export default {
     [ActionBar.name]: ActionBar
   },
   props: {
+    savedChecked: {
+      default: () => [],
+      type: Array
+    },
     showResult: {
       default() {},
       type: Function
@@ -44,10 +48,7 @@ export default {
     }
   },
   mounted() {
-    const questionareData = localStorage.getItem('savedQuestionareData')
-    if (questionareData) {
-      this.checked = JSON.parse(questionareData)
-    }
+    this.checked = this.savedChecked
   },
   methods: {
     handleSave() {

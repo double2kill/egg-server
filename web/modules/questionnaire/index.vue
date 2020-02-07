@@ -1,7 +1,16 @@
 <template>
   <div>
-    <RouteNav v-if="current==='Index'" :select-page="selectPage" />
-    <Form v-else-if="current==='Form'" :show-result="showResult" />
+    <RouteNav
+      v-if="current==='Index'"
+      :select-page="selectPage"
+      :saved-checked="savedChecked"
+      :submited-checked="submitedChecked"
+    />
+    <Form
+      v-else-if="current==='Form'"
+      :show-result="showResult"
+      :saved-checked="savedChecked"
+    />
     <Result v-else-if="current==='Result'" :selected-character-list="selectedCharacterList" />
   </div>
 </template>
@@ -23,19 +32,32 @@ export default {
   data() {
     return {
       current: 'Index',
+      savedChecked: [],
+      submitedChecked: [],
       selectedCharacterList: []
     }
   },
   mounted() {
+    const savedQuestionareData = localStorage.getItem('savedQuestionareData')
+    if (savedQuestionareData) {
+      this.savedChecked = JSON.parse(savedQuestionareData)
+    }
     const submitedQuestionareData = localStorage.getItem('submitedQuestionareData')
     if (submitedQuestionareData) {
-      this.checked = JSON.parse(submitedQuestionareData)
-      this.setSelectedCharacterList(this.checked)
+      this.submitedChecked = JSON.parse(submitedQuestionareData)
+      this.setSelectedCharacterList(this.submitedChecked)
     }
   },
   methods: {
     selectPage(page) {
-      this.current = page
+      if (page === 'Restart') {
+        this.savedChecked = []
+        this.current = 'Form'
+      } else if (page === 'Continue') {
+        this.current = 'Form'
+      } else {
+        this.current = page
+      }
     },
     setSelectedCharacterList(checked) {
       const selectedCharacterList = checked.map((item) => {
