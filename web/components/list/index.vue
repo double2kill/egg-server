@@ -1,17 +1,17 @@
 <template>
   <div>
     <div style="margin: 15px 0;text-align: left;">
-      <el-button size="medium" @click="fetchData()">
+      <el-button @click="fetchData()" size="medium">
         刷新
       </el-button>
-      <el-button size="medium" type="primary" @click="handleAdd()">
+      <el-button @click="handleAdd()" size="medium" type="primary">
         新增
       </el-button>
     </div>
 
     <el-table
-      border
       :data="weatherJobs.items"
+      border
       style="width: 100%"
     >
       <el-table-column
@@ -36,21 +36,21 @@
         width="100"
       >
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row)">
+          <el-button @click="handleEdit(scope.row)" type="text" size="small">
             编辑
           </el-button>
-          <el-button type="text" size="small" @click="handleDelete(scope.row)">
+          <el-button @click="handleDelete(scope.row)" type="text" size="small">
             删除
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination
-      layout="prev, pager, next"
       :current-page="pagination.currentPage"
       :page-size="pagination.pageSize"
       :total="weatherJobs.count"
       @current-change="handlePageChange"
+      layout="prev, pager, next"
     />
   </div>
 </template>
@@ -86,10 +86,10 @@ export default {
               cityName
             }
           }
-        }`,
-        mutation: {
-          deleteJob(id) { id }
-        }
+        }`
+        // mutation: {
+        //   deleteJob(id) { id }
+        // }
       }
     }
   },

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import ListPage from '~/modules/list'
+import ListPage from '~/components/list'
 
 export default {
   components: {

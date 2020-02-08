@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import TimeLinePage from '~/modules/timeLine'
+import TimeLinePage from '~/components/timeLine'
 
 export default {
   components: {

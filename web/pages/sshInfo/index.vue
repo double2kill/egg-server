@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import SshInfoPage from '~/modules/sshInfo'
+import SshInfoPage from '~/components/sshInfo'
 
 export default {
   components: {

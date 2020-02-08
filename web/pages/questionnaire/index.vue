@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import QuestionnairePage from '~/modules/questionnaire'
+import QuestionnairePage from '~/components/questionnaire'
 
 export default {
   components: {

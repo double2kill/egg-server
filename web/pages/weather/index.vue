@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import WeatherPage from '~/modules/Weather'
+import WeatherPage from '~/components/Weather'
 
 export default {
   components: {

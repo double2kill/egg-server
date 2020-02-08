@@ -13,7 +13,7 @@
       <el-button @click="handleBack">
         返回
       </el-button>
-      <el-button type="primary" @click="onSubmit">
+      <el-button @click="onSubmit" type="primary">
         提交
       </el-button>
     </el-form-item>
@@ -49,10 +49,10 @@ export default {
               cityName
             }
           }
-        }`,
-        mutation: {
-          deleteJob(id) { id }
-        }
+        }`
+        // mutation: {
+        //   deleteJob(id) { id }
+        // }
       }
     }
   },
