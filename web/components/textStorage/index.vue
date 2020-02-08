@@ -5,6 +5,7 @@
       :autosize="true"
       :rows="1"
       placeholder="请输入文字"
+      :max-height="500"
     />
     <md-button class="submit-button" type="primary" inline size="small" @click="submitText()">
       提交

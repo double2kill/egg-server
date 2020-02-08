@@ -13,7 +13,7 @@
         }}</span>
       </span>
     </el-tree>
-    <el-button @click="handleClick" type="primary">
+    <el-button type="primary" @click="handleClick">
       保存
     </el-button>
   </div>

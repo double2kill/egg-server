@@ -1,10 +1,10 @@
 <template>
   <div>
     <div style="margin: 15px 0;text-align: left;">
-      <el-button @click="fetchData()" size="medium">
+      <el-button size="medium" @click="fetchData()">
         刷新
       </el-button>
-      <el-button @click="handleAdd()" size="medium" type="primary">
+      <el-button size="medium" type="primary" @click="handleAdd()">
         新增
       </el-button>
     </div>
@@ -36,10 +36,10 @@
         width="100"
       >
         <template slot-scope="scope">
-          <el-button @click="handleEdit(scope.row)" type="text" size="small">
+          <el-button type="text" size="small" @click="handleEdit(scope.row)">
             编辑
           </el-button>
-          <el-button @click="handleDelete(scope.row)" type="text" size="small">
+          <el-button type="text" size="small" @click="handleDelete(scope.row)">
             删除
           </el-button>
         </template>
@@ -49,8 +49,8 @@
       :current-page="pagination.currentPage"
       :page-size="pagination.pageSize"
       :total="weatherJobs.count"
-      @current-change="handlePageChange"
       layout="prev, pager, next"
+      @current-change="handlePageChange"
     />
   </div>
 </template>
