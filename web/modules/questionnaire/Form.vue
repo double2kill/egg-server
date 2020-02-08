@@ -56,7 +56,6 @@ export default {
       Toast.succeed('保存成功')
     },
     handleSubmit() {
-      localStorage.setItem('savedQuestionareData', JSON.stringify(this.checked))
       localStorage.setItem('submitedQuestionareData', JSON.stringify(this.checked))
       this.showResult(this.checked)
     }
