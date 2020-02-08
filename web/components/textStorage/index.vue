@@ -39,7 +39,7 @@ export default {
     async getText() {
       try {
         await axios.get(`${SPAIR}/ns/liuchen`).then((res) => {
-          this.text = res.data
+          this.text = decodeURIComponent(res.data)
         })
       } catch (error) {
         Toast.succeed('服务器出错')
@@ -47,7 +47,9 @@ export default {
     },
     async submitText() {
       try {
-        await axios.get(`${SPAIR}/ns/liuchen/${this.text}`)
+        // encodeURIComponent twice
+        const text = encodeURIComponent(encodeURIComponent(this.text))
+        await axios.get(`${SPAIR}/ns/liuchen/${text}`)
         Toast.succeed('保存成功')
       } catch (error) {
         Toast.succeed('保存失败')
