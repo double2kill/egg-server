@@ -1,4 +1,5 @@
 export default {
   host: 'http://www.greatwebtech.cn:7001',
-  CMD: 'http://cmd.greatwebtech.cn'
+  CMD: 'http://cmd.greatwebtech.cn',
+  SPAIR: 'http://spair.greatwebtech.cn'
 }
