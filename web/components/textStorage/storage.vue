@@ -13,14 +13,17 @@
         rows="1"
         autosize
         type="textarea"
-        clearable
-      />
+      >
+        <van-button slot="button" size="small" @click="handleClear">
+          清空
+        </van-button>
+      </van-field>
     </van-cell-group>
     <div class="submit-group">
-      <van-button @click="handleCopy()">
+      <van-button @click="handleCopy">
         复制
       </van-button>
-      <van-button type="primary" @click="submitText()">
+      <van-button type="primary" @click="submitText">
         提交
       </van-button>
     </div>
@@ -119,6 +122,9 @@ export default {
       document.execCommand('copy')
       document.body.removeChild(tempInput)
       Toast.success('复制成功')
+    },
+    handleClear() {
+      this.text = ''
     },
     async handleChangeStorageName() {
       await this.getText()

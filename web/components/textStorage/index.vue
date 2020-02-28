@@ -10,6 +10,9 @@
       <van-tab title="仓库">
         <Storage :storage-name-from-list="storageName" />
       </van-tab>
+      <van-tab title="更新日志">
+        <Logs />
+      </van-tab>
     </van-tabs>
   </div>
 </template>
@@ -17,12 +20,14 @@
 <script>
 import Storage from './storage'
 import List from './list'
+import Logs from './logs'
 
 export default {
   name: 'TextStorage',
   components: {
     Storage,
-    List
+    List,
+    Logs
   },
   data() {
     return {
