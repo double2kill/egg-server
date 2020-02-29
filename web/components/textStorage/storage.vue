@@ -15,15 +15,17 @@
         autosize
         type="textarea"
       >
-        <van-button slot="button" size="small" @click="handleClear">
-          清空
-        </van-button>
+        <div slot="button" class="button-box">
+          <van-button size="small" @click="handleClear">
+            清空
+          </van-button>
+          <van-button type="primary" plain size="small" @click="handleCopy">
+            复制
+          </van-button>
+        </div>
       </van-field>
     </van-cell-group>
     <div class="submit-group">
-      <van-button @click="handleCopy">
-        复制
-      </van-button>
       <van-button type="primary" @click="submitText">
         提交
       </van-button>
@@ -137,5 +139,12 @@ export default {
   .submit-group {
     padding: 16px;
     text-align: right;
+  }
+  .button-box {
+    display: flex;
+    flex-direction: column;
+  }
+  .button-box button+button {
+    margin-top: 10px;
   }
 </style>
