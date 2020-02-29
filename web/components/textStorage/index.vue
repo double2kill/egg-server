@@ -2,7 +2,16 @@
   <div>
     <van-nav-bar
       title="文字收集仓"
-    />
+    >
+      <van-icon
+        v-if="active === 0"
+        slot="right"
+        name="plus"
+        size="20"
+        color="#ee0a24"
+        @click="handleAdd"
+      />
+    </van-nav-bar>
     <van-tabs v-model="active">
       <van-tab title="列表">
         <List v-if="active === 0" :handle-change-active-tab="handleChangeActiveTab" />
@@ -39,6 +48,9 @@ export default {
     handleChangeActiveTab(active, storageName) {
       this.active = active
       this.storageName = storageName
+    },
+    handleAdd() {
+      this.handleChangeActiveTab(1, 'add')
     }
   }
 }

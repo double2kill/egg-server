@@ -1,12 +1,13 @@
 <template>
   <div>
     <van-cell-group>
-      <van-field v-model="storageName" placeholder="请输入你喜欢的仓库名" label="仓库名">
+      <van-field ref="storageName" v-model="storageName" placeholder="请输入你喜欢的仓库名" label="仓库名">
         <van-button slot="button" size="small" @click="handleChangeStorageName">
-          修改
+          切换
         </van-button>
       </van-field>
       <van-field
+        ref="storageText"
         v-model="text"
         placeholder="请输入文字"
         label="仓库文字"
@@ -53,6 +54,12 @@ export default {
   },
   watch: {
     storageNameFromList(val) {
+      if (val === 'add') {
+        this.storageName = ''
+        this.text = ''
+        this.$refs.storageName.focus()
+        return
+      }
       this.storageName = val
       this.getText()
     }
@@ -113,6 +120,7 @@ export default {
     },
     handleClear() {
       this.text = ''
+      this.$refs.storageText.focus()
     },
     async handleChangeStorageName() {
       await this.getText()
