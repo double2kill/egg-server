@@ -11,12 +11,7 @@
 
 <script>
 
-import axios from 'axios'
-import URL from '../../constants'
-
-const SPAIR = URL.SPAIR
-
-const liuchenStorageList = 'liuchen_StorageList'
+import { textStorageListService } from './service'
 
 export default {
   name: 'StorageList',
@@ -37,10 +32,10 @@ export default {
     async getList() {
       try {
         this.loading = true
-        const res = await axios.get(`${SPAIR}/textStorage/${liuchenStorageList}`)
+        const res = await textStorageListService.get()
+        this.list = res
         this.loading = false
         this.finished = true
-        this.list = JSON.parse(decodeURIComponent(res.data || '[]'))
       } catch (error) {
         this.finished = true
         this.loading = false

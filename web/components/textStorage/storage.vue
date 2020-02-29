@@ -32,15 +32,10 @@
 
 <script>
 import { Toast } from 'vant'
-import axios from 'axios'
-import URL from '../../constants'
-
-const SPAIR = URL.SPAIR
+import { textStorageService, textStorageListService } from './service'
 
 const defaultStorageName = '默认仓库'
 const TEXT_STORAGE_STORAGE_NAME = 'textStorage.storageName'
-
-const liuchenStorageList = 'liuchen_StorageList'
 
 export default {
   name: 'Storage',
@@ -74,8 +69,8 @@ export default {
     async getText() {
       const storageName = this.getStorageName()
       try {
-        const res = await axios.get(`${SPAIR}/textStorage/${storageName}`)
-        this.text = decodeURIComponent(res.data)
+        const res = await textStorageService.get(storageName)
+        this.text = res
       } catch (error) {
         Toast.fail('服务器出错')
         throw new Error('服务器出错')
@@ -83,10 +78,8 @@ export default {
     },
     async submitText() {
       try {
-        // encodeURIComponent twice
         const storageName = this.getStorageName()
-        const text = encodeURIComponent(encodeURIComponent(this.text))
-        await axios.get(`${SPAIR}/textStorage/${storageName}/${text}`)
+        await textStorageService.post(storageName, this.text)
         Toast.success('保存成功')
         localStorage.setItem(TEXT_STORAGE_STORAGE_NAME, this.storageName)
         this.updateStorageList(storageName)
@@ -95,24 +88,19 @@ export default {
       }
     },
     async updateStorageList(storageName) {
-      const res = await axios.get(`${SPAIR}/textStorage/${liuchenStorageList}`)
-      let storageList
-      try {
-        storageList = JSON.parse(decodeURIComponent(res.data || '[]'))
-      } catch (error) {
-        storageList = []
-      }
-      if (!Array.isArray(storageList)) {
-        storageList = []
-      }
       const storageData = {
         name: storageName,
         updateTime: new Date().valueOf()
       }
+
+      let storageList = await textStorageListService.get()
+      if (!Array.isArray(storageList)) {
+        storageList = []
+      }
       storageList = storageList.filter(item => item.name !== storageName)
       storageList.unshift(storageData)
-      const text = encodeURIComponent(encodeURIComponent(JSON.stringify(storageList)))
-      await axios.get(`${SPAIR}/textStorage/${liuchenStorageList}/${text}`)
+
+      await textStorageListService.post(storageList)
     },
     handleCopy() {
       const tempInput = document.createElement('input')
