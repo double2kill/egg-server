@@ -36,9 +36,7 @@
 <script>
 import { Toast } from 'vant'
 import { textStorageService, textStorageListService } from './service'
-
-const defaultStorageName = '默认仓库'
-const TEXT_STORAGE_STORAGE_NAME = 'textStorage.storageName'
+import { TEXT_STORAGE_STORAGE_NAME, defaultStorageName } from './data'
 
 export default {
   name: 'Storage',
