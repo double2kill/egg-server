@@ -13,7 +13,7 @@
       <el-button @click="handleBack">
         返回
       </el-button>
-      <el-button @click="onSubmit" type="primary">
+      <el-button type="primary" @click="onSubmit">
         提交
       </el-button>
     </el-form-item>
@@ -25,6 +25,16 @@ import gql from 'graphql-tag'
 
 export default {
   name: 'WebForm',
+  props: {
+    routeParams: {
+      default: () => {},
+      type: Object
+    },
+    changeRoute: {
+      default: () => {},
+      type: Function
+    }
+  },
   data() {
     return {
       id: '',
@@ -56,7 +66,7 @@ export default {
       }
     }
   },
-  created() {
+  mounted() {
     this.fetchData()
   },
   methods: {
@@ -86,13 +96,13 @@ export default {
           variables: this.form
         })
       }
-      this.$router.go(-1)
+      this.handleBack()
     },
     handleBack() {
-      this.$router.go(-1)
+      this.changeRoute('Table')
     },
     async fetchData() {
-      const { params } = this.$router.history.current
+      const params = this.routeParams
       if (params.id === undefined) {
         return
       }

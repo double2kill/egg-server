@@ -12,7 +12,7 @@
 <script>
 import echarts from 'echarts'
 import axios from 'axios'
-import URL from '../../constants'
+import { EGG_SERVER } from '~/constants'
 import { getOptions } from './helper'
 
 export default {
@@ -61,7 +61,7 @@ export default {
       }
     },
     async getInfo(user) {
-      const result = await axios.get(`${URL.host}/v0.1/sshInfo`, {
+      const result = await axios.get(`${EGG_SERVER}/v0.1/sshInfo`, {
         params: {
           user
         }

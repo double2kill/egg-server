@@ -42,7 +42,8 @@ module.exports = {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/apollo'
   ],
   /*
   ** Axios module configuration
@@ -51,6 +52,13 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
 
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: 'http://www.greatwebtech.cn:7001/graphql'
+      }
+    }
+  },
   /*
   ** Build configuration
   */

@@ -7,7 +7,7 @@
 import echarts from 'echarts'
 import axios from 'axios'
 import { getOptions } from './helper'
-import URL from '@/constants'
+import { EGG_SERVER } from '@/constants'
 
 export default {
   name: '',
@@ -19,7 +19,7 @@ export default {
     }
   },
   async created() {
-    const result = await axios.get(`${URL.host}/v0.1/weathers`)
+    const result = await axios.get(`${EGG_SERVER}/v0.1/weathers`)
     this.drawEcharts('main', result.data)
   },
   methods: {
