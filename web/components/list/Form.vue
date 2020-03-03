@@ -7,7 +7,7 @@
       <el-input v-model="form.cityName" />
     </el-form-item>
     <el-form-item label="用户">
-      <el-input v-model="form.users" type="textarea" />
+      <Tags :tags="form.users" :on-change="handleUserChange" />
     </el-form-item>
     <el-form-item>
       <el-button @click="handleBack">
@@ -22,9 +22,13 @@
 
 <script>
 import gql from 'graphql-tag'
+import Tags from './tags'
 
 export default {
   name: 'WebForm',
+  components: {
+    Tags
+  },
   props: {
     routeParams: {
       default: () => {},
@@ -41,7 +45,7 @@ export default {
       form: {
         remark: '',
         cityName: '',
-        users: ''
+        users: []
       }
     }
   },
@@ -71,7 +75,6 @@ export default {
   },
   methods: {
     async onSubmit() {
-      this.form.users = ['刘晨']
       if (this.id) {
         await this.$apollo.mutate({
         // Query
@@ -109,6 +112,9 @@ export default {
       this.id = params.id
       const { data: { weatherJobs } } = await this.$apollo.queries.weatherJobs.refetch({ id: params.id })
       this.form = weatherJobs.items[0]
+    },
+    handleUserChange(users) {
+      this.form.users = users
     }
   }
 }
