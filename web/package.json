@@ -16,6 +16,7 @@
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/axios": "^5.3.6",
+    "core-js": "^2.6.9",
     "cross-env": "^5.2.0",
     "echarts": "^4.2.1",
     "element-ui": "^2.7.2",
