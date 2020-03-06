@@ -3,6 +3,10 @@ export const TEXT_STORAGE_READ_LOGS = 'textStorage.readLogs'
 export const defaultStorageName = '默认仓库'
 
 export const logs = [
+  { id: 8,
+    text: `1. 【列表】增加删除功能
+           2. 【列表】增加时间显示功能`,
+    updateTime: '2020-3-1 20:00:11' },
   { id: 7,
     text: `1. 【日志】增加未读红点和已读标绿
            2. 【仓库】移动"复制"的位置至"仓库文字内部"`,

@@ -99,15 +99,7 @@ export default {
         name: storageName,
         updateTime: new Date().valueOf()
       }
-
-      let storageList = await textStorageListService.get()
-      if (!Array.isArray(storageList)) {
-        storageList = []
-      }
-      storageList = storageList.filter(item => item.name !== storageName)
-      storageList.unshift(storageData)
-
-      await textStorageListService.post(storageList)
+      await textStorageListService.post(storageData)
     },
     handleCopy() {
       const tempInput = document.createElement('input')
