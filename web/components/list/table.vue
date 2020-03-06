@@ -25,6 +25,7 @@
       <el-table-column
         prop="users"
         label="用户"
+        width="600"
       >
         <template slot-scope="scope">
           <el-tag v-for="(user, index) in scope.row.users" :key="index" size="medium">
@@ -45,7 +46,7 @@
           <el-button type="text" size="small" @click="handleEdit(scope.row)">
             编辑
           </el-button>
-          <el-button type="text" size="small" @click="handleDelete(scope.row)">
+          <el-button type="text" size="small" @click="handleDelClick(scope.row)">
             删除
           </el-button>
         </template>
@@ -73,6 +74,7 @@ export default {
   },
   data() {
     return {
+      value: '',
       pagination: {
         currentPage: 1,
         pageSize: 10
@@ -110,6 +112,24 @@ export default {
       const offset = limit * (page - 1)
       this.pagination.currentPage = page
       await this.$apollo.queries.weatherJobs.refetch({ limit, offset })
+    },
+    handleDelClick(data) {
+      this.$prompt('密码', '确认删除', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputErrorMessage: '密码不正确',
+        inputType: 'password'
+      }).then(({ value }) => {
+        if (value !== '123123') {
+          this.$message({
+            showClose: true,
+            message: '密码错误',
+            type: 'error'
+          })
+          return
+        }
+        this.handleDelete(data)
+      }).catch(() => {})
     },
     async handleDelete({ id }) {
       // 考虑两个请求是否要统一起来

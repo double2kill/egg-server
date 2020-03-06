@@ -9,6 +9,9 @@
     <el-form-item label="用户">
       <Tags :tags="form.users" :on-change="handleUserChange" />
     </el-form-item>
+    <el-form-item label="密码">
+      <el-input v-model="form.password" show-password />
+    </el-form-item>
     <el-form-item>
       <el-button @click="handleBack">
         返回
@@ -45,8 +48,17 @@ export default {
       form: {
         remark: '',
         cityName: '',
-        users: []
-      }
+        users: [],
+        password: ''
+      },
+      rules: [
+        { required: true,
+          message: '年龄不能为空',
+          validator() {
+            debugger
+          }
+        }
+      ]
     }
   },
   apollo: {
@@ -75,6 +87,14 @@ export default {
   },
   methods: {
     async onSubmit() {
+      if (this.form.password !== '123123') {
+        this.$message({
+          showClose: true,
+          message: '密码错误',
+          type: 'error'
+        })
+        return
+      }
       if (this.id) {
         await this.$apollo.mutate({
         // Query

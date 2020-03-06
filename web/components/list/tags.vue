@@ -24,6 +24,8 @@
   </div>
 </template>
 <script>
+import validator from 'validator'
+
 export default {
   props: {
     tags: {
@@ -46,6 +48,19 @@ export default {
     }
   },
   methods: {
+    validate(value) {
+      const pattern = /(<([^>]+)>)/g
+      const email = pattern.exec(value)[2]
+      if (validator.isEmail(email)) {
+        return true
+      }
+      this.$message({
+        showClose: true,
+        message: '输入不符合规则 - name<email@a.com>',
+        type: 'error'
+      })
+      return false
+    },
     handleClose(closedTag) {
       const tags = this.tags.filter(tag => tag !== closedTag)
       this.onChange(tags)
@@ -61,8 +76,10 @@ export default {
     handleInputConfirm() {
       const inputValue = this.inputValue
       if (inputValue) {
-        const tags = this.tags.concat(inputValue)
-        this.onChange(tags)
+        if (this.validate(inputValue)) {
+          const tags = this.tags.concat(inputValue)
+          this.onChange(tags)
+        }
       }
       this.inputVisible = false
       this.inputValue = ''
@@ -82,7 +99,7 @@ export default {
     padding-bottom: 0;
   }
   .input-new-tag {
-    width: 90px;
+    width: 200px;
     vertical-align: bottom;
   }
   .el-tag + .input-new-tag,
