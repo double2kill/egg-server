@@ -10,7 +10,7 @@ class HomeController extends Controller {
     if (Object.keys(query).length) {
       modelQuery = query;
     }
-    const data = await ctx.model.Weather.find(modelQuery, 'statistics date');
+    const data = await ctx.model.Weather.find(modelQuery, 'statistics date city');
     this.ctx.body = data;
   }
 }

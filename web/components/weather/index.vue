@@ -20,7 +20,8 @@ export default {
   },
   async created() {
     const result = await axios.get(`${EGG_SERVER}/v0.1/weathers`)
-    this.drawEcharts('main', result.data)
+    debugger
+    this.drawEcharts('main', result.data.filter(item => item.city === '大田'))
   },
   methods: {
     drawEcharts(id, data) {
