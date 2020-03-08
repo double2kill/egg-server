@@ -1,5 +1,6 @@
 <template>
   <el-menu
+    v-if="showMenu"
     :default-active="defaultMenu"
     class="el-menu-demo"
     mode="horizontal"
@@ -24,16 +25,20 @@ export default {
   name: 'Menu',
   data() {
     const { history, options } = this.$router
-    const { path } = history.current
+    const { path, query } = history.current
     return {
       defaultMenu: path,
-      menuRoutes: options.routes.filter(route => route.name !== 'index')
+      menuRoutes: options.routes.filter(route => route.name !== 'index'),
+      showMenu: path === '/' ? true : query.showMenu
     }
   },
   methods: {
     handleSelect(key) {
       this.$router.push({
-        path: key
+        path: key,
+        query: {
+          showMenu: true
+        }
       })
     }
   },
