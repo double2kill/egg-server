@@ -45,7 +45,7 @@ export default {
       user: 'liuchen'
     }
   },
-  async created() {
+  async mounted() {
     const user = 'liuchen'
     await this.getInfo(user)
   },
