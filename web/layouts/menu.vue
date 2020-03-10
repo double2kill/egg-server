@@ -1,8 +1,6 @@
 <template>
   <el-menu
-    v-if="showMenu"
     :default-active="defaultMenu"
-    class="el-menu-demo"
     mode="horizontal"
     @select="handleSelect"
   >
@@ -25,11 +23,10 @@ export default {
   name: 'Menu',
   data() {
     const { history, options } = this.$router
-    const { path, query } = history.current
+    const { path } = history.current
     return {
       defaultMenu: path,
-      menuRoutes: options.routes.filter(route => route.name !== 'index'),
-      showMenu: path === '/' ? true : query.showMenu
+      menuRoutes: options.routes.filter(route => route.name !== 'index')
     }
   },
   methods: {
@@ -47,11 +44,3 @@ export default {
   }
 }
 </script>
-
-<style>
-@media screen and (max-width: 800px) {
-  .el-menu-demo {
-    display: none;
-  }
-}
-</style>

@@ -1,16 +1,41 @@
 <template>
   <div>
-    <homeMenu />
-    <nuxt />
+    <homeMenu v-if="showMenu" />
+    <nuxt class="page-content" :class="{pageWithoutMenu: !showMenu}" />
+    <Footer />
   </div>
 </template>
 
 <script>
 import homeMenu from './menu'
+import Footer from './footer'
 
 export default {
   components: {
-    homeMenu
+    homeMenu,
+    Footer
+  },
+  data() {
+    return {
+      showMenu: false
+    }
+  },
+  mounted() {
+    this.showMenu = this.getShowMenu()
+  },
+  methods: {
+    getShowMenu() {
+      const isMobile = document.body.clientWidth < 800
+      if (isMobile) {
+        return false
+      }
+      const { history } = this.$router
+      const { path, query } = history.current
+      if (path === '/') {
+        return true
+      }
+      return query.showMenu
+    }
   }
 }
 </script>
@@ -62,5 +87,13 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.page-content {
+  min-height: 70vh
+}
+
+.pageWithoutMenu {
+  min-height: 80vh
 }
 </style>
