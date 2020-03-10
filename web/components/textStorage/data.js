@@ -3,6 +3,9 @@ export const TEXT_STORAGE_READ_LOGS = 'textStorage.readLogs'
 export const defaultStorageName = '默认仓库'
 
 export const logs = [
+  { id: 9,
+    text: `1. 【列表】时间会每分钟或者每小时变化`,
+    updateTime: '2020-3-10 22:51:45' },
   { id: 8,
     text: `1. 【列表】增加删除功能
            2. 【列表】增加时间显示功能`,
