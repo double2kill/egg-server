@@ -4,7 +4,7 @@
     <p>Copyright © 2019-{{ currentYear }}. All Rights Reserved. 连学军/刘晨 版权所有</p>
     <p>
       <el-link href="http://www.beian.miit.gov.cn" target="_blank">
-        闵ICP备18009406号
+        闽ICP备18009406号
       </el-link>
     </p>
   </footer>
