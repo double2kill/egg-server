@@ -7,11 +7,13 @@ export default class SpairService {
     this.namespace = namespace
   }
   async get(key) {
-    const res = await axios.get(`${SPAIR}/${this.namespace}/${key}`) || ''
+    const encodedKey = encodeURIComponent(key)
+    const res = await axios.get(`${SPAIR}/${this.namespace}/${encodedKey}`) || ''
     return decodeURIComponent(res.data)
   }
   post(key, value) {
+    const encodedKey = encodeURIComponent(key)
     const encodedValue = encodeURIComponent(encodeURIComponent(value))
-    return axios.get(`${SPAIR}/${this.namespace}/${key}/${encodedValue}`)
+    return axios.get(`${SPAIR}/${this.namespace}/${encodedKey}/${encodedValue}`)
   }
 }

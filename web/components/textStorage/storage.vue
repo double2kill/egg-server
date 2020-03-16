@@ -64,9 +64,9 @@ export default {
       this.getText()
     }
   },
-  mounted() {
-    const storageName = localStorage.getItem(TEXT_STORAGE_STORAGE_NAME) || defaultStorageName
-    this.storageName = storageName
+  async mounted() {
+    const list = await textStorageListService.get()
+    this.storageName = list.length > 0 ? list[0].name : defaultStorageName
     this.getText()
   },
   methods: {
