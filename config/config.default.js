@@ -44,5 +44,13 @@ module.exports = appInfo => {
     router: '/graphql',
     graphiql: true,
   };
+
+  exports.view = {
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.html': 'nunjucks',
+    },
+  };
+
   return config;
 };

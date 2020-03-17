@@ -20,6 +20,10 @@ module.exports = app => {
   // 用户登陆api
   router.get('/v0.1/sshInfo', controller.sshInfo.index);
 
+  // 上传服务api
+  router.get('/v0.1/upload', controller.upload.index);
+  router.post('/v0.1/upload', controller.upload.post);
+
   // // graphql接口
   // router.get('/v0.1/graphql', controller.graphql.index);
   // router.post('/v0.1/graphql', controller.graphql.index);

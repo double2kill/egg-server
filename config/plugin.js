@@ -36,3 +36,8 @@ exports.graphql = {
   enable: true,
   package: 'egg-graphql',
 };
+
+exports.nunjucks = {
+  enable: true,
+  package: 'egg-view-nunjucks',
+};

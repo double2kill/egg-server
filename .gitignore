@@ -11,3 +11,4 @@ run/
 *.sw*
 *.un~
 shouldnotpublic.js
+/app/public
