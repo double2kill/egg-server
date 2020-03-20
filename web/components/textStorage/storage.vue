@@ -24,6 +24,13 @@
           </van-button>
         </div>
       </van-field>
+      <van-field
+        label="图片"
+      >
+        <div slot="input" class="upload-box">
+          <Upload :file-name-list="fileNameList" :update-file-name-list="updateFileNameList" />
+        </div>
+      </van-field>
     </van-cell-group>
     <div class="submit-group">
       <van-button type="primary" @click="submitText">
@@ -37,9 +44,13 @@
 import { Toast } from 'vant'
 import { textStorageService, textStorageListService } from './service'
 import { TEXT_STORAGE_STORAGE_NAME, defaultStorageName } from './data'
+import Upload from './common/upload'
 
 export default {
   name: 'Storage',
+  components: {
+    Upload
+  },
   props: {
     storageNameFromList: {
       default: () => '',
@@ -48,6 +59,7 @@ export default {
   },
   data() {
     return {
+      fileNameList: [],
       storageName: defaultStorageName,
       text: ''
     }
@@ -77,7 +89,19 @@ export default {
       const storageName = this.getStorageName()
       try {
         const res = await textStorageService.get(storageName)
-        this.text = res
+        let resData
+        try {
+          resData = JSON.parse(res)
+        } catch (error) {
+          resData = res
+        }
+        if (typeof resData === 'object') {
+          this.text = resData.text
+          this.fileNameList = resData.fileNameList
+        } else {
+          this.text = res
+          this.fileNameList = []
+        }
       } catch (error) {
         Toast.fail('服务器出错')
         throw new Error('服务器出错')
@@ -86,7 +110,14 @@ export default {
     async submitText() {
       try {
         const storageName = this.getStorageName()
-        await textStorageService.post(storageName, this.text)
+        let data = this.text
+        if (this.fileNameList.length > 0) {
+          data = JSON.stringify({
+            text: this.text,
+            fileNameList: this.fileNameList
+          })
+        }
+        await textStorageService.post(storageName, data)
         Toast.success('保存成功')
         localStorage.setItem(TEXT_STORAGE_STORAGE_NAME, this.storageName)
         this.updateStorageList(storageName)
@@ -116,6 +147,9 @@ export default {
     },
     async handleChangeStorageName() {
       await this.getText()
+    },
+    updateFileNameList(fileNameList) {
+      this.fileNameList = fileNameList
     }
   }
 }
@@ -136,5 +170,8 @@ export default {
   }
   .button-box button+button {
     margin-top: 10px;
+  }
+  .upload-box {
+    text-align: center;
   }
 </style>
