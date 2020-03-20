@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-cell-group>
-      <van-field ref="storageName" v-model="storageName" placeholder="请输入你喜欢的仓库名" label="仓库名">
+      <van-field ref="storageName" v-model="storageName" placeholder="请输入你喜欢的名称" label="名称">
         <van-button slot="button" size="small" @click="handleChangeStorageName">
           切换
         </van-button>
@@ -9,8 +9,8 @@
       <van-field
         ref="storageText"
         v-model="text"
-        placeholder="请输入文字"
-        label="仓库文字"
+        placeholder="请输入需要存储的文字"
+        label="文字"
         rows="1"
         autosize
         type="textarea"

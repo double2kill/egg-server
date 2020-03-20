@@ -11,7 +11,7 @@ export default {
   },
   head() {
     return {
-      title: '文字收集仓'
+      title: '临时存储区'
     }
   }
 }

@@ -3,6 +3,10 @@ export const TEXT_STORAGE_READ_LOGS = 'textStorage.readLogs'
 export const defaultStorageName = '默认仓库'
 
 export const logs = [
+  { id: 11,
+    text: `1. 【文字收集仓】更名为【临时存储区】
+           2. 增加上传图片的功能`,
+    updateTime: '2020-3-20 21:45:46' },
   { id: 10,
     text: `1. 【仓库】获取最新的仓库作为第一次的仓库
            2. 修复特殊字符作为仓库名的bug`,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar
-      title="文字收集仓"
+      title="临时存储区"
     >
       <van-icon
         v-if="active === 0"
@@ -16,7 +16,7 @@
       <van-tab title="列表">
         <List v-if="active === 0" :handle-change-active-tab="handleChangeActiveTab" />
       </van-tab>
-      <van-tab title="仓库">
+      <van-tab title="存储区">
         <Storage :storage-name-from-list="storageName" />
       </van-tab>
       <van-tab title="更新日志" :dot="logsDot">
