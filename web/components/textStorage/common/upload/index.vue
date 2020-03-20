@@ -1,33 +1,20 @@
 <template>
-  <el-button
-    class="upload-btn"
-  >
-    <el-upload
-      :on-preview="handlePreview"
-      class="upload-demo"
-      list-type="picture"
-      :limit="1"
-      :action="uploadUrl"
-      :before-upload="beforeUpload"
-      :before-remove="beforeRemove"
-      :on-success="handleSuccess"
-      :on-remove="handleRemove"
-      :on-exceed="handleExceed"
-      :file-list="fileList"
-    >
-      <el-button size="small" type="primary">
-        点击上传
-      </el-button>
-      <div slot="tip" class="el-upload__tip">
-        不超过{{ limitSize }}M
-      </div>
-    </el-upload>
-  </el-button>
+  <van-uploader
+    v-model="fileList"
+    accept="*"
+    max-count="1"
+    :preview-full-image="false"
+    :after-read="afterRead"
+    :before-read="beforeRead"
+    :before-delete="beforeDelete"
+    @click-preview="clickPreview"
+  />
 </template>
 
 <script>
 import { EGG_SERVER } from '@/constants'
 import { Dialog, Toast } from 'vant'
+import axios from 'axios'
 
 export default {
   props: {
@@ -53,7 +40,9 @@ export default {
       if (val[0] !== this.lastFileNameList[0]) {
         const newNameList = val.map((name) => {
           return {
-            name,
+            file: {
+              name
+            },
             url: `${EGG_SERVER}/public/${name}`
           }
         })
@@ -63,32 +52,48 @@ export default {
     }
   },
   methods: {
-    handleExceed(files, fileList) {
-      Toast.fail(`只能上传一个文件`)
+    async afterRead(file, detail) {
+      file.status = 'uploading'
+      file.message = '上传中...'
+      const param = new FormData() // 创建form对象
+      param.append('file', file.file)// 通过append向form对象添加数据
+      try {
+        await axios.post(`${EGG_SERVER}/v0.1/upload`, param, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        })
+        file.status = 'success'
+        file.message = '上传失败'
+        this.handleSuccess(file.file)
+      } catch (error) {
+        file.status = 'failed'
+        file.message = '上传失败'
+      }
     },
-    beforeRemove(file, fileList) {
+    clickPreview(file) {
+      window.open(file.url)
+    },
+    beforeDelete(file) {
       return Dialog.confirm({
         title: '删除',
-        message: `确定移除 ${file.name}？`
-      }).then(() => true)
+        message: `确定移除 ${file.file.name}？`
+      }).then(() => {
+        this.handleRemove()
+      })
     },
-    beforeUpload(file) {
+    beforeRead(file) {
       const isLt10M = file.size / 1024 / 1024 < this.limitSize
       if (!isLt10M) {
         Toast.fail(`上传文件大小不能超过 ${this.limitSize}MB!`)
       }
       return isLt10M
     },
-    handlePreview(file) {
-      window.open(file.url)
-    },
-    handleSuccess(res, file, fileList) {
-      const fileNameList = fileList.map(file => file.name)
+    handleSuccess(file) {
+      const fileNameList = [file.name]
       this.lastFileNameList = fileNameList
       this.updateFileNameList(fileNameList)
     },
-    handleRemove(file, fileList) {
-      const fileNameList = fileList.map(file => file.name)
+    handleRemove() {
+      const fileNameList = []
       this.lastFileNameList = fileNameList
       this.updateFileNameList(fileNameList)
     }

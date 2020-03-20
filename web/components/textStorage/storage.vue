@@ -172,6 +172,6 @@ export default {
     margin-top: 10px;
   }
   .upload-box {
-    text-align: center;
+    padding-top: 10px;
   }
 </style>
