@@ -18,6 +18,10 @@ import axios from 'axios'
 
 export default {
   props: {
+    storageName: {
+      default: () => [],
+      type: String
+    },
     fileNameList: {
       default: () => [],
       type: Array
@@ -39,11 +43,12 @@ export default {
     fileNameList(val) {
       if (val[0] !== this.lastFileNameList[0]) {
         const newNameList = val.map((name) => {
+          const savedFileName = this.getSavedFileName(this.storageName, name)
           return {
             file: {
               name
             },
-            url: `${EGG_SERVER}/public/${name}`
+            url: `${EGG_SERVER}/public/${savedFileName}`
           }
         })
         this.fileList = newNameList
@@ -52,36 +57,41 @@ export default {
     }
   },
   methods: {
-    async afterRead(file, detail) {
-      file.status = 'uploading'
-      file.message = '上传中...'
+    getSavedFileName(storageName, name) {
+      return `${storageName}_${name}`
+    },
+    async afterRead(fileItem, detail) {
+      const { file } = fileItem
+      fileItem.status = 'uploading'
+      fileItem.message = '上传中...'
       const param = new FormData() // 创建form对象
-      param.append('file', file.file)// 通过append向form对象添加数据
+      const savedFileName = this.getSavedFileName(this.storageName, file.name)
+      param.append('file', file, savedFileName)// 通过append向form对象添加数据
       try {
         await axios.post(`${EGG_SERVER}/v0.1/upload`, param, {
           headers: { 'Content-Type': 'multipart/form-data' }
         })
-        file.status = 'success'
-        file.message = '上传失败'
-        this.handleSuccess(file.file)
+        fileItem.status = 'success'
+        fileItem.message = '上传失败'
+        this.handleSuccess(file)
       } catch (error) {
-        file.status = 'failed'
-        file.message = '上传失败'
+        fileItem.status = 'failed'
+        fileItem.message = '上传失败'
       }
     },
-    clickPreview(file) {
-      window.open(file.url)
+    clickPreview(fileItem) {
+      window.open(fileItem.url)
     },
-    beforeDelete(file) {
+    beforeDelete(fileItem) {
       return Dialog.confirm({
         title: '删除',
-        message: `确定移除 ${file.file.name}？`
+        message: `确定移除 ${fileItem.file.name}？`
       }).then(() => {
         this.handleRemove()
       })
     },
-    beforeRead(file) {
-      const isLt10M = file.size / 1024 / 1024 < this.limitSize
+    beforeRead(fileItem) {
+      const isLt10M = fileItem.size / 1024 / 1024 < this.limitSize
       if (!isLt10M) {
         Toast.fail(`上传文件大小不能超过 ${this.limitSize}MB!`)
       }

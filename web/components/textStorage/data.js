@@ -4,8 +4,12 @@ export const defaultStorageName = '默认仓库'
 
 export const logs = [
   { id: 11,
+    text: `1. 修复bug 点击+后文件没有被清空
+           2. 修改文件存储路径`,
+    updateTime: '2020-3-21 11:11:57' },
+  { id: 11,
     text: `1. 【文字收集仓】更名为【临时存储区】
-           2. 增加上传图片的功能`,
+           2. 增加上传文件的功能`,
     updateTime: '2020-3-20 23:36:52' },
   { id: 10,
     text: `1. 【仓库】获取最新的仓库作为第一次的仓库

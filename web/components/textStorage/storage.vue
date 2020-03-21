@@ -25,10 +25,19 @@
         </div>
       </van-field>
       <van-field
-        label="图片"
+        label="文件"
       >
         <div slot="input" class="upload-box">
-          <Upload :file-name-list="fileNameList" :update-file-name-list="updateFileNameList" />
+          <div>
+            <Upload
+              :storage-name="storageName"
+              :file-name-list="fileNameList"
+              :update-file-name-list="updateFileNameList"
+            />
+          </div>
+          <p class="description">
+            大小限制10M
+          </p>
         </div>
       </van-field>
     </van-cell-group>
@@ -69,6 +78,7 @@ export default {
       if (val === 'add') {
         this.storageName = ''
         this.text = ''
+        this.fileNameList = []
         this.$refs.storageName.focus()
         return
       }
@@ -173,5 +183,8 @@ export default {
   }
   .upload-box {
     padding-top: 10px;
+  }
+  .description {
+    color: rgba(69, 90, 100, 0.6)
   }
 </style>
