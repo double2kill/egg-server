@@ -34,7 +34,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/element-ui', ssr: true }
+    { src: '@/plugins/element-ui', ssr: true },
+    { src: '@/plugins/ckeditor', mode: 'client' }
   ],
 
   /*

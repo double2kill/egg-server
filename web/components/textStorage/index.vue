@@ -63,7 +63,7 @@ export default {
       const readLogs = JSON.parse(localStorage.getItem(TEXT_STORAGE_READ_LOGS) || '[]')
       return logs
         .filter(log => !readLogs.some(readLog => log.id === readLog.id))
-        .filter(log => log.id > 5)
+        .filter(log => (logs[0].id - log.id < 3))
     },
     activeChange(active) {
       if (active === 2) {

@@ -3,7 +3,11 @@ export const TEXT_STORAGE_READ_LOGS = 'textStorage.readLogs'
 export const defaultStorageName = '默认仓库'
 
 export const logs = [
-  { id: 11,
+  { id: 13,
+    text: `1. 【临时存储区】textarea换成ckeditor
+           2. 【日志】最多显示3条未读`,
+    updateTime: '2020-3-25 22:43:56' },
+  { id: 12,
     text: `1. 修复bug 点击+后文件没有被清空
            2. 修改文件存储路径`,
     updateTime: '2020-3-21 11:11:57' },

@@ -6,15 +6,14 @@
           切换
         </van-button>
       </van-field>
-      <van-field
-        ref="storageText"
-        v-model="text"
-        placeholder="请输入需要存储的文字"
-        label="文字"
-        rows="1"
-        autosize
-        type="textarea"
-      >
+      <van-field label="文字">
+        <ckeditor
+          ref="storageText"
+          slot="input"
+          v-model="text"
+          :editor="editor"
+          :config="editorConfig"
+        />
         <div slot="button" class="button-box">
           <van-button size="small" @click="handleClear">
             清空
@@ -54,6 +53,14 @@ import { Toast } from 'vant'
 import { textStorageService, textStorageListService } from './service'
 import { TEXT_STORAGE_STORAGE_NAME, defaultStorageName } from './data'
 import Upload from './common/upload'
+import MyCustomUploadAdapterPlugin from './common/ckeditor/MyCustomUploadAdapterPlugin'
+
+let ClassicEditor
+if (process.browser) {
+  ClassicEditor = require('@ckeditor/ckeditor5-build-classic')
+  // eslint-disable-next-line no-console
+  console.log(ClassicEditor.builtinPlugins.map(plugin => plugin.pluginName))
+}
 
 export default {
   name: 'Storage',
@@ -68,6 +75,19 @@ export default {
   },
   data() {
     return {
+      editor: ClassicEditor,
+      editorConfig: {
+        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'blockQuote', 'imageUpload' ],
+        image: {
+          toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
+          styles: [
+            'full',
+            'alignLeft',
+            'alignRight'
+          ]
+        },
+        extraPlugins: [ MyCustomUploadAdapterPlugin ]
+      },
       fileNameList: [],
       storageName: defaultStorageName,
       text: ''
