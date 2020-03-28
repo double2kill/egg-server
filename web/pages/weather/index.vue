@@ -5,6 +5,7 @@
 <script>
 import WeatherPage from '~/components/weather'
 import { EGG_SERVER } from '@/constants'
+import head from '@/utils/getHead'
 
 export default {
   components: {
@@ -15,10 +16,6 @@ export default {
       weatherData: await $axios.$get(`${EGG_SERVER}/v0.1/weathers`)
     }
   },
-  head() {
-    return {
-      title: '天气'
-    }
-  }
+  head
 }
 </script>

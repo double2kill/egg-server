@@ -4,15 +4,12 @@
 
 <script>
 import TextStoragePage from '~/components/textStorage'
+import head from '@/utils/getHead'
 
 export default {
   components: {
     TextStoragePage
   },
-  head() {
-    return {
-      title: '临时存储区'
-    }
-  }
+  head
 }
 </script>

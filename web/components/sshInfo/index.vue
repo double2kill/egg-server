@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <div class="sshInfo">
     用户
     <el-select v-model="user" clearable placeholder="请选择用户" @change="handleSelect">
       <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
-    <!--为echarts准备一个具备大小的容器dom-->
-    <div id="sshInfo" style="max-width: 800px; width: 100%; height: 400px; margin: 0 auto;" />
+    <div id="sshInfo" class="echart" />
   </div>
 </template>
 
@@ -74,18 +73,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* h3 {
-  margin: 40px 0 0;
+.sshInfo {
+  text-align: center;
+  padding: 15px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.echart {
+  max-width: 800px;
+  width: 100%;
+  height: 400px;
+  margin: 0 auto;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-} */
 </style>

@@ -66,11 +66,12 @@ export default {
 <style scoped>
 .weather {
   text-align: center;
+  padding: 15px;
 }
 .echart {
   max-width: 400px;
   width: 100%;
   height: 400px;
-  margin: 0 auto;
+  margin: 15px auto;
 }
 </style>

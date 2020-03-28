@@ -4,15 +4,12 @@
 
 <script>
 import QuestionnairePage from '~/components/questionnaire'
+import head from '@/utils/getHead'
 
 export default {
   components: {
     QuestionnairePage
   },
-  head() {
-    return {
-      title: '性格测评'
-    }
-  }
+  head
 }
 </script>

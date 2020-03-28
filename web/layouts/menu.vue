@@ -1,12 +1,10 @@
 <template>
   <el-menu
+    class="menu"
     :default-active="defaultMenu"
     mode="horizontal"
     @select="handleSelect"
   >
-    <el-menu-item index="/">
-      首页
-    </el-menu-item>
     <el-menu-item
       v-for="route in menuRoutes"
       :key="route.path"
@@ -18,15 +16,23 @@
 </template>
 
 <script>
-// import { menuRoutes } from '../route'
+import { routeList } from '@/constants'
+
 export default {
   name: 'Menu',
   data() {
     const { history, options } = this.$router
     const { path } = history.current
+
+    const extraRoutes = options.routes
+      .filter((route) => {
+        const isOneOfRouteList = routeList.some(item => item.path === route.path)
+        return !isOneOfRouteList
+      })
+
     return {
       defaultMenu: path,
-      menuRoutes: options.routes.filter(route => route.name !== 'index')
+      menuRoutes: routeList.concat(extraRoutes)
     }
   },
   methods: {
@@ -44,3 +50,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.menu {
+  display: flex;
+  justify-content: center;
+}
+</style>
