@@ -29,6 +29,7 @@
     "mand-mobile": "^2.5.7",
     "moment": "^2.24.0",
     "nuxt": "^2.4.0",
+    "nuxt-user-agent": "^1.2.2",
     "validator": "^12.2.0",
     "vant": "^2.4.7",
     "vue-apollo": "^3.0.0-beta.30",

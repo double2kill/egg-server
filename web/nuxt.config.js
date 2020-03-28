@@ -44,7 +44,8 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/apollo'
+    '@nuxtjs/apollo',
+    'nuxt-user-agent'
   ],
   /*
   ** Axios module configuration

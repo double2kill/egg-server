@@ -20,13 +20,12 @@ export default {
       showMenu: false
     }
   },
-  mounted() {
+  created() {
     this.showMenu = this.getShowMenu()
   },
   methods: {
     getShowMenu() {
-      const isMobile = document.body.clientWidth < 800
-      if (isMobile) {
+      if (this.$ua.isFromSmartphone()) {
         return false
       }
       const { history } = this.$router

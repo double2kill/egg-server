@@ -40,14 +40,14 @@ function formatMediaOption(option) {
   }
 }
 
-export function getOptions(data) {
+export function getEchartOptions(data, title) {
   const XData = data.map(item => item.date)
   const maxTempData = data.map(item => item.statistics.max_temp)
   const minTempData = data.map(item => item.statistics.min_temp)
 
   return formatMediaOption({
     title: {
-      text: '大田历史气温变化'
+      text: title
     },
     tooltip: {
       trigger: 'axis'

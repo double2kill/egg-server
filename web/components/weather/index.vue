@@ -1,33 +1,62 @@
 <template>
-  <!--为echarts准备一个具备大小的容器dom-->
-  <div id="main" style="max-width: 400px; width: 100%;height: 400px; margin: 0 auto;" />
+  <div class="weather">
+    <el-select
+      v-model="city"
+      placeholder="请选择城市"
+      @change="handleChange"
+    >
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      />
+    </el-select>
+    <div id="echart" class="echart" />
+  </div>
 </template>
 
 <script>
 import echarts from 'echarts'
-import axios from 'axios'
-import { getOptions } from './helper'
-import { EGG_SERVER } from '@/constants'
+import { getEchartOptions } from './helper'
 
 export default {
   name: '',
+  props: {
+    weatherData: {
+      default: () => [],
+      type: Array
+    }
+  },
   data() {
     return {
       charts: '',
-      opinion: [],
-      opinionData: []
+      city: '大田',
+      options: [{
+        value: '大田',
+        label: '大田'
+      }, {
+        value: '福州',
+        label: '福州'
+      }, {
+        value: '厦门',
+        label: '厦门'
+      }]
     }
   },
-  async created() {
-    const result = await axios.get(`${EGG_SERVER}/v0.1/weathers`)
-    debugger
-    this.drawEcharts('main', result.data.filter(item => item.city === '大田'))
+  mounted() {
+    this.charts = echarts.init(document.getElementById('echart'), 'light')
+    this.drawWeather('大田')
   },
   methods: {
-    drawEcharts(id, data) {
-      this.charts = echarts.init(document.getElementById(id), 'light')
-      const options = getOptions(data || [])
+    drawWeather(city) {
+      const data = this.weatherData.filter(item => item.city === city)
+      const title = `${city}历史天气`
+      const options = getEchartOptions(data, title)
       this.charts.setOption(options)
+    },
+    handleChange(city) {
+      this.drawWeather(city)
     }
   }
 }
@@ -35,18 +64,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.weather {
+  text-align: center;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.echart {
+  max-width: 400px;
+  width: 100%;
+  height: 400px;
+  margin: 0 auto;
 }
 </style>
