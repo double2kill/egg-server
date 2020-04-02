@@ -28,8 +28,7 @@ export default {
       if (this.$ua.isFromSmartphone()) {
         return false
       }
-      const { history } = this.$router
-      const { path, query } = history.current
+      const { path, query } = this.$router.history.current
       if (path === '/') {
         return true
       }

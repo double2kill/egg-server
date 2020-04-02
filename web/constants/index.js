@@ -14,7 +14,8 @@ export const routeList = [
   { path: '/questionnaire', name: '性格测评' },
   { path: '/timeLine', name: '时间线' },
   { path: '/todoList', name: 'TODO' },
-  { path: '/others', name: '其他' }
+  { path: '/others', name: '其他' },
+  { path: '/admin', name: '管理员后台', mode: 'admin' }
 ]
 
 export const routeNameMap = routeList.reduce((map, item) => {

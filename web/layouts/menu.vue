@@ -6,7 +6,7 @@
     @select="handleSelect"
   >
     <el-menu-item
-      v-for="route in menuRoutes"
+      v-for="route in hasPermisionMenuRoutes"
       :key="route.path"
       :index="route.path"
     >
@@ -17,6 +17,11 @@
 
 <script>
 import { routeList } from '@/constants'
+
+const adminExtraMenu = [
+  { path: '/admin', name: '切换至管理员模式' },
+  { path: '/', name: '切换至用户模式', mode: 'admin' }
+]
 
 export default {
   name: 'Menu',
@@ -31,17 +36,51 @@ export default {
       })
 
     return {
+      mode: undefined,
       defaultMenu: path,
       menuRoutes: routeList.concat(extraRoutes)
     }
   },
+  computed: {
+    hasPermisionMenuRoutes() {
+      const { query } = this.$router.history.current
+      const { admin } = query
+      let menuRoutes = this.menuRoutes
+      if (admin) {
+        menuRoutes = [...menuRoutes, ...adminExtraMenu]
+      }
+      const mode = this.getCurrentMode()
+      if (mode === 'admin') {
+        return menuRoutes.filter(item => item.mode === 'admin')
+      }
+      return menuRoutes.filter(item => !item.mode)
+    }
+  },
   methods: {
+    getCurrentMode() {
+      return this.mode || this.$router.history.current.mode
+    },
     handleSelect(key) {
+      const { query } = this.$router.history.current
+      let mode = this.getCurrentMode()
+      if (mode === 'admin') {
+        if (key === '/') {
+          mode = undefined
+        }
+      } else if (key === '/admin') {
+        mode = 'admin'
+      }
+
       this.$router.push({
         path: key,
         query: {
-          showMenu: true
+          ...query,
+          showMenu: true,
+          mode
         }
+      }, () => {
+        this.mode = mode
+        this.defaultMenu = key
       })
     }
   },
