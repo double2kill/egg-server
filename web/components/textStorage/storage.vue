@@ -58,8 +58,6 @@ import MyCustomUploadAdapterPlugin from './common/ckeditor/MyCustomUploadAdapter
 let ClassicEditor
 if (process.browser) {
   ClassicEditor = require('@ckeditor/ckeditor5-build-classic')
-  // eslint-disable-next-line no-console
-  console.log(ClassicEditor.builtinPlugins.map(plugin => plugin.pluginName))
 }
 
 export default {

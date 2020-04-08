@@ -8,7 +8,12 @@ const liuchenStorageList = 'liuchen_StorageList'
 export const textStorageListService = {
   async get() {
     const res = await textStorageService.get(liuchenStorageList)
-    return JSON.parse(res || '[]')
+    try {
+      // 兼容旧数据
+      return JSON.parse(res || '[]')
+    } catch (e) {
+      return res
+    }
   },
   async post(storageData) {
     let newStorageList = await textStorageListService.get()

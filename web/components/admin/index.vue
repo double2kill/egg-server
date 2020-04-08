@@ -55,17 +55,15 @@ export default {
   },
   methods: {
     async fetchData() {
-      const list = await textStorageService.list()
-      const fetchAllList = list.map((key) => {
-        return textStorageService.get(key).then((text) => {
-          return {
-            key,
-            value: text
-          }
+      try {
+        this.tableData = await textStorageService.list()
+      } catch (error) {
+        this.$message({
+          showClose: true,
+          message: '服务器出错',
+          type: 'error'
         })
-      })
-      const tableData = await Promise.all(fetchAllList)
-      this.tableData = tableData
+      }
     },
     handleEdit() {
       this.$message('尽情期待')

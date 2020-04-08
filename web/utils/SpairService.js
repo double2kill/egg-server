@@ -13,11 +13,17 @@ export default class SpairService {
   async get(key) {
     const encodedKey = encodeURIComponent(key)
     const res = await axios.get(`${SPAIR}/${this.namespace}/${encodedKey}`) || ''
+    const { data } = res
+    if (typeof data !== 'string') {
+      return data
+    }
+    // 兼容旧数据
     return decodeURIComponent(res.data)
   }
   post(key, value) {
     const encodedKey = encodeURIComponent(key)
-    const encodedValue = encodeURIComponent(encodeURIComponent(value))
-    return axios.get(`${SPAIR}/${this.namespace}/${encodedKey}/${encodedValue}`)
+    return axios.post(`${SPAIR}/${this.namespace}/${encodedKey}`, {
+      value
+    })
   }
 }
