@@ -94,9 +94,4 @@ html {
 .pageWithoutMenu {
   min-height: 80vh
 }
-
-body {
-  -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
-  filter: grayscale(100%);
-}
 </style>
