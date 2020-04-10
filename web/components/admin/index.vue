@@ -20,7 +20,17 @@
         {{ scope.row.value }}
       </template>
     </el-table-column>
-    <el-table-column label="操作">
+    <el-table-column
+      label="更新时间"
+    >
+      <template slot-scope="scope">
+        <dateTime slot="label" :value="scope.row.update_time" />
+      </template>
+    </el-table-column>
+    <el-table-column
+      label="操作"
+      width="360"
+    >
       <template slot-scope="scope">
         <el-button
           size="mini"
@@ -41,10 +51,14 @@
 </template>
 
 <script>
+import dateTime from '@/common/dateTime'
 import SpairService from '~/utils/SpairService'
 export const textStorageService = new SpairService('textStorage')
 
 export default {
+  components: {
+    dateTime
+  },
   data() {
     return {
       tableData: []

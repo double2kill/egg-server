@@ -43,6 +43,9 @@ export default {
       }, time)
     },
     rendertimeText() {
+      if (this.value === 0) {
+        return '无'
+      }
       const momentValue = moment(this.value)
       const timeText = this.valueIsToday()
         ? momentValue.fromNow()

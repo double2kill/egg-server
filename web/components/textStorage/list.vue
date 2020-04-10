@@ -18,7 +18,7 @@
 
 import { Dialog } from 'vant'
 import { textStorageService, textStorageListService } from './service'
-import dateTime from './common/dateTime'
+import dateTime from '@/common/dateTime'
 
 export default {
   name: 'StorageList',
