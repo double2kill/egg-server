@@ -17,8 +17,12 @@ export default class SpairService {
     if (typeof data !== 'string') {
       return data
     }
-    // 兼容旧数据
-    return decodeURIComponent(res.data)
+    try {
+      // 兼容旧数据
+      return decodeURIComponent(data)
+    } catch (e) {
+      return data
+    }
   }
   post(key, value) {
     const encodedKey = encodeURIComponent(key)
