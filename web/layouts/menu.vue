@@ -49,7 +49,7 @@ export default {
       if (admin) {
         menuRoutes = [...menuRoutes, ...adminExtraMenu]
       }
-      const mode = this.getCurrentMode()
+      const mode = this.getCurrentMode(query)
       if (mode === 'admin') {
         return menuRoutes.filter(item => item.mode === 'admin')
       }
@@ -57,12 +57,12 @@ export default {
     }
   },
   methods: {
-    getCurrentMode() {
-      return this.mode || this.$router.history.current.mode
+    getCurrentMode(query) {
+      return this.mode || query.mode
     },
     handleSelect(key) {
       const { query } = this.$router.history.current
-      let mode = this.getCurrentMode()
+      let mode = this.getCurrentMode(query)
       if (mode === 'admin') {
         if (key === '/') {
           mode = undefined
