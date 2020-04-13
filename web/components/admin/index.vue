@@ -1,76 +1,116 @@
 <template>
-  <el-table
-    :data="tableData"
-    style="width: 100%"
-  >
-    <el-table-column
-      label="key"
-      width="180"
+  <div class="admin">
+    <span class="sub-title">namespace</span>
+    <el-autocomplete
+      v-model="namespace"
+      :fetch-suggestions="querySearchNamespace"
+      placeholder="请输入namespace"
+      clearable
+      @select="handleSelectNamespace"
+    />
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      :default-sort="{prop: 'update_time', order: 'descending'}"
     >
-      <template slot-scope="scope">
-        <el-tag size="medium">
-          {{ scope.row.key }}
-        </el-tag>
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="value"
-    >
-      <template slot-scope="scope">
-        {{ scope.row.value }}
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="更新时间"
-    >
-      <template slot-scope="scope">
-        <dateTime slot="label" :value="scope.row.update_time" />
-      </template>
-    </el-table-column>
-    <el-table-column
-      label="操作"
-      width="360"
-    >
-      <template slot-scope="scope">
-        <el-button
-          size="mini"
-          @click="handleEdit(scope.$index, scope.row)"
-        >
-          编辑
-        </el-button>
-        <el-button
-          size="mini"
-          type="danger"
-          @click="handleDelete(scope.$index, scope.row)"
-        >
-          删除
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+      <el-table-column
+        label="key"
+        width="180"
+      >
+        <template slot-scope="scope">
+          <el-tag size="medium">
+            {{ scope.row.key }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="value"
+      >
+        <template slot-scope="scope">
+          {{ scope.row.value }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="update_time"
+        label="更新时间"
+        sortable
+      >
+        <template slot-scope="scope">
+          <dateTime slot="label" :value="scope.row.update_time" />
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="操作"
+        width="360"
+      >
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="showEditDialog(scope.row)"
+          >
+            编辑
+          </el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="confirmDelete(scope.row.key)"
+          >
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <EditDialog
+      :visible="dialogVisible"
+      :edit-form="editForm"
+      :close-dialog="closeDialog"
+      :handle-edit="handleEdit"
+    />
+  </div>
 </template>
 
 <script>
 import dateTime from '@/common/dateTime'
+import EditDialog from './EditDialog'
 import SpairService from '~/utils/SpairService'
-export const textStorageService = new SpairService('textStorage')
 
 export default {
   components: {
-    dateTime
+    dateTime,
+    EditDialog
   },
   data() {
     return {
-      tableData: []
+      tableData: [],
+      dialogVisible: false,
+      editForm: {},
+      namespace: '',
+      namespaceService: null,
+      namespaceList: []
     }
   },
   mounted() {
-    this.fetchData()
+    this.fetchNamespaceList()
   },
   methods: {
-    async fetchData() {
+    async fetchNamespaceList() {
+      const ADMIN = 'admin'
       try {
-        this.tableData = await textStorageService.list()
+        const adminService = new SpairService(ADMIN)
+        const list = await adminService.get('namespace')
+        if (Array.isArray(list)) {
+          this.namespaceList = list
+        } else {
+          this.namespaceList = [ADMIN]
+          this.$message({
+            showClose: true,
+            message: '服务器数据有误, 请检查admin.namespace的配置',
+            type: 'error'
+          })
+        }
+        const first = this.namespaceList[0]
+        this.namespace = first
+        this.handleSelectNamespace({ value: first })
       } catch (error) {
         this.$message({
           showClose: true,
@@ -79,12 +119,79 @@ export default {
         })
       }
     },
-    handleEdit() {
-      this.$message('尽情期待')
+    async fetchData() {
+      try {
+        this.tableData = await this.namespaceService.list()
+      } catch (error) {
+        this.$message({
+          showClose: true,
+          message: '服务器出错',
+          type: 'error'
+        })
+      }
     },
-    handleDelete() {
-      this.$message('尽情期待')
+    showEditDialog(row) {
+      this.dialogVisible = true
+      this.editForm = row
+    },
+    closeDialog() {
+      this.dialogVisible = false
+    },
+    confirmDelete(key) {
+      this.$confirm('此操作将永久删除数据, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.handleDelete(key)
+      })
+    },
+    async handleEdit(key, value) {
+      try {
+        await this.namespaceService.post(key, value)
+        this.closeDialog()
+        this.fetchData()
+      } catch (error) {
+        this.$message({
+          showClose: true,
+          message: '服务器出错',
+          type: 'error'
+        })
+      }
+    },
+    async handleDelete(key) {
+      try {
+        await this.namespaceService.delete(key)
+        this.fetchData()
+      } catch (error) {
+        this.$message({
+          showClose: true,
+          message: '服务器出错',
+          type: 'error'
+        })
+      }
+    },
+    querySearchNamespace(queryString, cb) {
+      const result = this.namespaceList
+        .filter(item => item.toLowerCase().includes(queryString.toLowerCase()))
+        .map(item => ({
+          value: item
+        }))
+      cb(result)
+    },
+    handleSelectNamespace(item) {
+      const { value } = item
+      if (value) {
+        this.namespaceService = new SpairService(value)
+        this.fetchData()
+      }
     }
   }
 }
 </script>
+
+<style scoped>
+  .admin {
+    padding: 15px;
+  }
+</style>

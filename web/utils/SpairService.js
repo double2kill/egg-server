@@ -30,4 +30,8 @@ export default class SpairService {
       value
     })
   }
+  delete(key) {
+    const encodedKey = encodeURIComponent(key)
+    return axios.delete(`${SPAIR}/${this.namespace}/${encodedKey}`)
+  }
 }
