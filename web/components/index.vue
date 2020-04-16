@@ -6,7 +6,7 @@
         egg-web
       </h1>
       <h2 class="subtitle">
-        My funkadelic Nuxt.js project
+        My Nuxt.js project
       </h2>
       <div class="links">
         <a
