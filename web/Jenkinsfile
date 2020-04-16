@@ -26,7 +26,15 @@ pipeline {
     stage('Publish') {
       steps {
         dir(path: 'web') {
-          sh 'scp -r .nuxt autojenkins@www.greatwebtech.cn:~/egg-server'
+          sh 'scp -r .nuxt autojenkins@www.greatwebtech.cn:~/egg-server/web'
+        }
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        dir(path: 'web') {
+          sh 'ssh autojenkins@www.greatwebtech.cn "cd ~/egg-server/web && npm run pm2:restart"'
         }
       }
     }
