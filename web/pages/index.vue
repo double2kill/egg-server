@@ -3,10 +3,10 @@
     <div>
       <logo />
       <h1 class="title">
-        egg-web
+        greatwebtech
       </h1>
       <h2 class="subtitle">
-        My funkadelic Nuxt.js project
+        好好学习，天天向上
       </h2>
       <div class="links">
         <a
