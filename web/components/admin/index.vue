@@ -1,13 +1,13 @@
 <template>
   <div class="admin">
     <span class="sub-title">namespace</span>
-    <el-autocomplete
+    <el-select
       v-model="namespace"
-      :fetch-suggestions="querySearchNamespace"
-      placeholder="请输入namespace"
-      clearable
-      @select="handleSelectNamespace"
-    />
+      filterable
+      @change="handleSelectNamespace"
+    >
+      <el-option v-for="item in namespaceList" :key="item" :label="item" :value="item" />
+    </el-select>
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -108,9 +108,9 @@ export default {
             type: 'error'
           })
         }
-        const first = this.namespaceList[0]
-        this.namespace = first
-        this.handleSelectNamespace({ value: first })
+        const firstNamespace = this.namespaceList[0]
+
+        this.handleSelectNamespace(firstNamespace)
       } catch (error) {
         this.$message({
           showClose: true,
@@ -179,9 +179,9 @@ export default {
         }))
       cb(result)
     },
-    handleSelectNamespace(item) {
-      const { value } = item
+    handleSelectNamespace(value) {
       if (value) {
+        this.namespace = value
         this.namespaceService = new SpairService(value)
         this.fetchData()
       }
