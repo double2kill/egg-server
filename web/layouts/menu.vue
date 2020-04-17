@@ -27,7 +27,7 @@ export default {
   name: 'Menu',
   data() {
     const { history, options } = this.$router
-    const { path } = history.current
+    const { path, query } = history.current
 
     const extraRoutes = options.routes
       .filter((route) => {
@@ -36,7 +36,7 @@ export default {
       })
 
     return {
-      mode: undefined,
+      mode: query.mode,
       defaultMenu: path,
       menuRoutes: routeList.concat(extraRoutes)
     }
