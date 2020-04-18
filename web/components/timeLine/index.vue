@@ -29,129 +29,19 @@
 </template>
 
 <script>
+import { SPAIR_NAMESPACE } from '~/constants'
+import SpairService from '~/utils/SpairService'
+const timeLineService = new SpairService(SPAIR_NAMESPACE.timeLine)
+
 export default {
   data() {
     return {
       reverse: true,
-      activities: [
-        {
-          content: '确定金鸡亭的房子，交5万定金',
-          timestamp: '2019-4-19',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '交完全部定金',
-          timestamp: '2019-4-23',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '交中介费1万',
-          timestamp: '2019-4-23',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '去装修卖场确定装修方案',
-          timestamp: '2019-5-4',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '和房东过户，交税费2.5%',
-          timestamp: '2019-5-13',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '拆旧橱柜，门，沙发',
-          timestamp: '2019-5-17',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '清洗空调，冰箱',
-          timestamp: '2019-5-18',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '装吊顶，清洗窗户',
-          timestamp: '2019-5-26',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '过水电',
-          timestamp: '2019-5-27',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '装门,换锁',
-          timestamp: '2019-5-28',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '刷墙',
-          timestamp: '2019-5-31',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '装灯',
-          timestamp: '2019-6-11',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '装集成灶',
-          timestamp: '2019-6-12',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '装橱柜',
-          timestamp: '2019-6-13',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '装台面',
-          timestamp: '2019-6-14',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '换新床垫',
-          timestamp: '2019-6-28',
-          size: 'large',
-          icon: 'el-icon-check',
-          color: '#0bbd87'
-        },
-        {
-          content: '所有手续完成',
-          timestamp: '2019-6-28'
-        }
-      ]
+      activities: []
     }
+  },
+  async mounted() {
+    this.activities = await timeLineService.get('1')
   }
 }
 </script>

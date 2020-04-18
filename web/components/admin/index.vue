@@ -73,6 +73,8 @@
 import dateTime from '@/common/dateTime'
 import EditDialog from './EditDialog'
 import SpairService from '~/utils/SpairService'
+import { SPAIR_NAMESPACE } from '~/constants'
+const ADMIN = SPAIR_NAMESPACE.admin
 
 export default {
   components: {
@@ -94,7 +96,6 @@ export default {
   },
   methods: {
     async fetchNamespaceList() {
-      const ADMIN = 'admin'
       try {
         const adminService = new SpairService(ADMIN)
         const list = await adminService.get('namespace')
