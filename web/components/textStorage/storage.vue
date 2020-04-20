@@ -50,7 +50,7 @@
 
 <script>
 import { Toast } from 'vant'
-import { textStorageService, textStorageListService } from './service'
+import { textStorageService } from './service'
 import { TEXT_STORAGE_STORAGE_NAME, defaultStorageName } from './data'
 import Upload from './common/upload'
 import MyCustomUploadAdapterPlugin from './common/ckeditor/MyCustomUploadAdapterPlugin'
@@ -105,8 +105,8 @@ export default {
     }
   },
   async mounted() {
-    const list = await textStorageListService.get()
-    this.storageName = list.length > 0 ? list[0].name : defaultStorageName
+    const list = await textStorageService.list()
+    this.storageName = list.length > 0 ? list[0].key : defaultStorageName
     this.getText()
   },
   methods: {
@@ -148,17 +148,9 @@ export default {
         await textStorageService.post(storageName, data)
         Toast.success('保存成功')
         localStorage.setItem(TEXT_STORAGE_STORAGE_NAME, this.storageName)
-        this.updateStorageList(storageName)
       } catch (error) {
         Toast.fail('保存失败')
       }
-    },
-    async updateStorageList(storageName) {
-      const storageData = {
-        name: storageName,
-        updateTime: new Date().valueOf()
-      }
-      await textStorageListService.post(storageData)
     },
     handleCopy() {
       const tempInput = document.createElement('input')

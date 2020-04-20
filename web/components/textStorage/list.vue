@@ -5,11 +5,11 @@
     finished-text="没有更多了"
     @load="getList"
   >
-    <van-cell v-for="item in list" :key="item.updateTime" :title="item.name" @click="handleClick(item.name)">
+    <van-cell v-for="item in list" :key="item.update_time" :title="item.key" @click="handleClick(item.key)">
       <van-button type="danger" size="small" plain @click.stop="handleDelete(item)">
         删除
       </van-button>
-      <dateTime slot="label" :value="item.updateTime" />
+      <dateTime slot="label" :value="item.update_time" />
     </van-cell>
   </van-list>
 </template>
@@ -17,7 +17,7 @@
 <script>
 
 import { Dialog } from 'vant'
-import { textStorageService, textStorageListService } from './service'
+import { textStorageService } from './service'
 import dateTime from '@/common/dateTime'
 
 export default {
@@ -42,7 +42,7 @@ export default {
     async getList() {
       try {
         this.loading = true
-        this.list = await textStorageListService.get()
+        this.list = await textStorageService.list()
         this.loading = false
         this.finished = true
       } catch (error) {
@@ -50,8 +50,8 @@ export default {
         this.loading = false
       }
     },
-    handleClick(name) {
-      this.handleChangeActiveTab(1, name)
+    handleClick(key) {
+      this.handleChangeActiveTab(1, key)
     },
     handleDelete(delItem) {
       Dialog.confirm({
@@ -59,11 +59,9 @@ export default {
         message: '确定删除该仓库？'
       }).then(async () => {
         // on confirm
-        // 先删除仓库数据，再删除仓库列表
-        await textStorageService.post(delItem.name, ' ')
-        const { updateTime } = delItem
-        await textStorageListService.delete(updateTime)
-        this.list = this.list.filter(item => item.updateTime !== updateTime)
+        await textStorageService.delete(delItem.key)
+        const { key } = delItem
+        this.list = this.list.filter(item => item.key !== key)
       }).catch(() => {
         // on cancel
       })
