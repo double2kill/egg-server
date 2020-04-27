@@ -20,6 +20,7 @@
     "@ckeditor/ckeditor5-vue": "^1.0.1",
     "@nuxtjs/apollo": "^4.0.0-rc19",
     "@nuxtjs/axios": "^5.3.6",
+    "@tinymce/tinymce-vue": "^3.2.0",
     "core-js": "^2.6.9",
     "cross-env": "^5.2.0",
     "echarts": "^4.2.1",
