@@ -7,12 +7,12 @@
         </van-button>
       </van-field>
       <van-field label="文字">
-        <ckeditor
-          ref="storageText"
+        <Editor
           slot="input"
           v-model="text"
-          :editor="editor"
-          :config="editorConfig"
+          :api-key="apiKey"
+          :images_upload_handler="uploadImage"
+          :init="editorInit"
         />
         <div slot="button" class="button-box">
           <van-button size="small" @click="handleClear">
@@ -50,20 +50,18 @@
 
 <script>
 import { Toast } from 'vant'
+import Editor from '@tinymce/tinymce-vue'
 import { textStorageService } from './service'
 import { TEXT_STORAGE_STORAGE_NAME, defaultStorageName } from './data'
 import Upload from './common/upload'
-import MyCustomUploadAdapterPlugin from './common/ckeditor/MyCustomUploadAdapterPlugin'
-
-let ClassicEditor
-if (process.browser) {
-  ClassicEditor = require('@ckeditor/ckeditor5-build-classic')
-}
+import axios from 'axios'
+import { EGG_SERVER } from '@/constants'
 
 export default {
   name: 'Storage',
   components: {
-    Upload
+    Upload,
+    Editor
   },
   props: {
     storageNameFromList: {
@@ -73,22 +71,37 @@ export default {
   },
   data() {
     return {
-      editor: ClassicEditor,
-      editorConfig: {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'blockQuote', 'imageUpload' ],
-        image: {
-          toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
-          styles: [
-            'full',
-            'alignLeft',
-            'alignRight'
-          ]
-        },
-        extraPlugins: [ MyCustomUploadAdapterPlugin ]
-      },
+      apiKey: '27pm3mknbtxqaw8n3aq9g9vh7f4oyz1p75zeundv79mjmyty',
       fileNameList: [],
       storageName: defaultStorageName,
-      text: ''
+      text: '',
+      editorInit: {
+        menubar: false,
+        language: 'zh_CN',
+        plugins: [
+          'lists advlist',
+          'autolink link',
+          'image imagetools',
+          'code codesample',
+          'fullscreen',
+          'table save paste searchreplace autoresize wordcount quickbars help '
+        ],
+        toolbar: `code | undo redo | formatselect | bold italic backcolor |
+           alignleft aligncenter alignright alignjustify |
+           bullist numlist outdent indent |  | image codesample | fullscreen  |  help`,
+        paste_data_images: true,
+        codesample_languages: [
+          { text: 'JavaScript', value: 'javascript' },
+          { text: 'HTML/XML', value: 'markup' },
+          { text: 'CSS', value: 'css' }
+        ],
+        images_upload_handler: this.uploadImage,
+        save_onsavecallback: this.submitText,
+        mobile: {
+          plugins: 'image fullscreen autoresize',
+          toolbar: 'image fullscreen'
+        }
+      }
     }
   },
   watch: {
@@ -170,6 +183,17 @@ export default {
     },
     updateFileNameList(fileNameList) {
       this.fileNameList = fileNameList
+    },
+    async uploadImage(blobInfo, success, failure) {
+      const data = new FormData()
+      const fileInfo = blobInfo.blob()
+      const fileName = fileInfo.name || `image_${new Date().valueOf()}.png`
+      data.append('file', fileInfo, fileName)
+      data.append('allowSize', 10)
+      await axios.post(`${EGG_SERVER}/v0.1/upload`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      success(`${EGG_SERVER}/public/${fileName}`)
     }
   }
 }
