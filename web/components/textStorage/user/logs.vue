@@ -15,7 +15,7 @@
 
 <script>
 
-import { logs } from './data'
+import { logs } from '../data'
 
 export default {
   name: 'StorageList',

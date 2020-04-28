@@ -19,8 +19,8 @@
       <van-tab title="存储区">
         <Storage :storage-name-from-list="storageName" />
       </van-tab>
-      <van-tab title="更新日志" :dot="logsDot">
-        <Logs :unread-logs="unreadLogs" />
+      <van-tab title="用户" :dot="logsDot">
+        <User />
       </van-tab>
     </van-tabs>
   </div>
@@ -29,7 +29,7 @@
 <script>
 import Storage from './storage'
 import List from './list'
-import Logs from './logs'
+import User from './user'
 import { logs, TEXT_STORAGE_READ_LOGS } from './data'
 
 export default {
@@ -37,7 +37,7 @@ export default {
   components: {
     Storage,
     List,
-    Logs
+    User
   },
   data() {
     return {

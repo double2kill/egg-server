@@ -4,6 +4,9 @@ export default {
 }
 
 export const EGG_SERVER = 'http://www.greatwebtech.cn:7001'
+export const COOKIE = {
+  USER_NAME: 'USER_NAME'
+}
 
 export const routeList = [
   { path: '/', name: '首页' },
