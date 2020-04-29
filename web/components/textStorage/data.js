@@ -1,8 +1,16 @@
 export const TEXT_STORAGE_STORAGE_NAME = 'textStorage.storageName'
-export const TEXT_STORAGE_READ_LOGS = 'textStorage.readLogs'
 export const defaultStorageName = '默认仓库'
 
 export const logs = [
+  { id: 17,
+    text: `1. 删除unread 检测`,
+    updateTime: '2020-04-29 16:59:40' },
+  { id: 16,
+    text: `1. 增加用户登录模块`,
+    updateTime: '2020-04-28 22:57:27' },
+  { id: 15,
+    text: `1. textStorage 富文本编辑器切换成 tinymce`,
+    updateTime: '2020-04-27 21:57:27' },
   { id: 14,
     text: `1. 更新服务的使用`,
     updateTime: '2020-4-19 23:12:21' },
