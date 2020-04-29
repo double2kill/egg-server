@@ -44,8 +44,9 @@ export default {
       this.$store.dispatch('user/login', {
         $cookie: this.$cookies,
         username: values.username
+      }).then(() => {
+        this.routeGoto('')
       })
-      this.routeGoto('')
     }
   }
 }
