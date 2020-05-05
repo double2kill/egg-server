@@ -43,9 +43,16 @@ export default {
     onSubmit(values) {
       this.$store.dispatch('user/login', {
         $cookie: this.$cookies,
-        username: values.username
+        username: values.username,
+        password: values.password
       }).then(() => {
         this.routeGoto('')
+      }).catch((err) => {
+        this.$message({
+          showClose: true,
+          message: err.message,
+          type: 'error'
+        })
       })
     }
   }
