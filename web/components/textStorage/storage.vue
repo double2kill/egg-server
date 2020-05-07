@@ -1,31 +1,26 @@
 <template>
   <div>
     <van-cell-group>
-      <van-field ref="storageName" v-model="storageName" placeholder="请输入你喜欢的名称" label="名称">
-        <van-button slot="button" size="small" @click="handleChangeStorageName">
-          切换
-        </van-button>
-      </van-field>
-      <van-field label="文字">
-        <Editor
-          slot="input"
-          v-model="text"
-          :api-key="apiKey"
-          :images_upload_handler="uploadImage"
-          :init="editorInit"
-        />
-        <div slot="button" class="button-box">
-          <van-button size="small" @click="handleClear">
-            清空
-          </van-button>
-          <van-button type="primary" plain size="small" @click="handleCopy">
-            复制
-          </van-button>
+      <van-field ref="storageName" v-model="storageName" placeholder="请输入你喜欢的名称" />
+      <van-field>
+        <div slot="input" style="width: 100%">
+          <div class="button-box">
+            <van-button size="small" @click="handleClear">
+              清空
+            </van-button>
+            <van-button type="primary" plain size="small" @click="handleCopy">
+              复制
+            </van-button>
+          </div>
+          <Editor
+            v-model="text"
+            :api-key="apiKey"
+            :images_upload_handler="uploadImage"
+            :init="editorInit"
+          />
         </div>
       </van-field>
-      <van-field
-        label="文件"
-      >
+      <van-field>
         <div slot="input" class="upload-box">
           <div>
             <Upload
@@ -35,7 +30,7 @@
             />
           </div>
           <p class="description">
-            大小限制10M
+            文件大小限制10M
           </p>
         </div>
       </van-field>
@@ -118,7 +113,8 @@ export default {
     }
   },
   async mounted() {
-    const list = await textStorageService.list()
+    const reqParams = this.getReqParams()
+    const list = await textStorageService.list(reqParams)
     this.storageName = list.length > 0 ? list[0].key : defaultStorageName
     this.getText()
   },
@@ -126,10 +122,19 @@ export default {
     getStorageName() {
       return this.storageName || defaultStorageName
     },
+    getReqParams() {
+      const username = this.$store.state.user.username
+      if (username) {
+        return {
+          user: username
+        }
+      }
+    },
     async getText() {
+      const reqParams = this.getReqParams()
       const storageName = this.getStorageName()
       try {
-        const res = await textStorageService.get(storageName)
+        const res = await textStorageService.get(storageName, reqParams)
         let resData
         try {
           resData = JSON.parse(res)
@@ -158,7 +163,8 @@ export default {
             fileNameList: this.fileNameList
           })
         }
-        await textStorageService.post(storageName, data)
+        const reqParams = this.getReqParams()
+        await textStorageService.post(storageName, data, reqParams)
         Toast.success('保存成功')
         localStorage.setItem(TEXT_STORAGE_STORAGE_NAME, this.storageName)
       } catch (error) {
@@ -177,9 +183,6 @@ export default {
     handleClear() {
       this.text = ''
       this.$refs.storageText.focus()
-    },
-    async handleChangeStorageName() {
-      await this.getText()
     },
     updateFileNameList(fileNameList) {
       this.fileNameList = fileNameList
@@ -209,8 +212,7 @@ export default {
     text-align: right;
   }
   .button-box {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 10px;
   }
   .button-box button+button {
     margin-top: 10px;

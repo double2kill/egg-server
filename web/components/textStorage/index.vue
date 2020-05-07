@@ -19,7 +19,7 @@
       <van-tab title="存储区">
         <Storage v-if="active === 1" :storage-name-from-list="storageName" />
       </van-tab>
-      <van-tab title="用户" :dot="logsDot">
+      <van-tab :title="username" :dot="logsDot">
         <User v-if="active === 2" />
       </van-tab>
     </van-tabs>
@@ -43,6 +43,11 @@ export default {
       logsDot: false,
       active: 1,
       storageName: ''
+    }
+  },
+  computed: {
+    username() {
+      return this.$store.state.user.username || '游客'
     }
   },
   methods: {

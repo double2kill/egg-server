@@ -39,10 +39,19 @@ export default {
     }
   },
   methods: {
+    getReqParams() {
+      const username = this.$store.state.user.username
+      if (username) {
+        return {
+          user: username
+        }
+      }
+    },
     async getList() {
       try {
         this.loading = true
-        this.list = await textStorageService.list()
+        const reqParams = this.getReqParams()
+        this.list = await textStorageService.list(reqParams)
         this.loading = false
         this.finished = true
       } catch (error) {
@@ -59,7 +68,8 @@ export default {
         message: '确定删除该仓库？'
       }).then(async () => {
         // on confirm
-        await textStorageService.delete(delItem.key)
+        const reqParams = this.getReqParams()
+        await textStorageService.delete(delItem.key, reqParams)
         const { key } = delItem
         this.list = this.list.filter(item => item.key !== key)
       }).catch(() => {
