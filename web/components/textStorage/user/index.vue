@@ -13,7 +13,7 @@
 <script>
 
 import Logs from './logs'
-import Login from './Login'
+import Login from './login'
 
 export default {
   name: 'User',
