@@ -4,9 +4,11 @@
       <van-cell v-if="!!username" :title="username" is-link value="登出" @click="handleLogout" />
       <van-cell v-if="!username" title="登录" is-link @click="routeGoto('login')" />
       <van-cell title="更新日志" is-link @click="routeGoto('logs')" />
+      <van-cell title="注册" is-link @click="routeGoto('signup')" />
     </van-cell-group>
     <Login v-if="route=== 'login'" :route-goto="routeGoto" />
     <Logs v-if="route=== 'logs'" />
+    <SignUp v-if="route=== 'signup'" :route-goto="routeGoto" />
   </div>
 </template>
 
@@ -14,12 +16,14 @@
 
 import Logs from './logs'
 import Login from './login'
+import SignUp from './signup'
 
 export default {
   name: 'User',
   components: {
     Logs,
-    Login
+    Login,
+    SignUp
   },
   data() {
     return {

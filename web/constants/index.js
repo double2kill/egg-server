@@ -30,5 +30,6 @@ export const routeNameMap = routeList.reduce((map, item) => {
 export const SPAIR_NAMESPACE = {
   admin: 'admin',
   timeLine: 'timeLine',
-  textStorage: 'textStorage'
+  textStorage: 'textStorage',
+  user: 'user'
 }

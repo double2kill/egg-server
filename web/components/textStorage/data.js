@@ -2,6 +2,9 @@ export const TEXT_STORAGE_STORAGE_NAME = 'textStorage.storageName'
 export const defaultStorageName = '默认仓库'
 
 export const logs = [
+  { id: 20,
+    text: `1. 增加【注册】功能`,
+    updateTime: '2020-5-7 22:12:59' },
   { id: 19,
     text: `1. 增加用户功能`,
     updateTime: '2020-5-7 20:11:37' },
