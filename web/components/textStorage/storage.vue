@@ -113,7 +113,8 @@ export default {
     }
   },
   async mounted() {
-    const list = await textStorageService.list()
+    const reqParams = this.getReqParams()
+    const list = await textStorageService.list(reqParams)
     this.storageName = list.length > 0 ? list[0].key : defaultStorageName
     this.getText()
   },
@@ -121,10 +122,19 @@ export default {
     getStorageName() {
       return this.storageName || defaultStorageName
     },
+    getReqParams() {
+      const username = this.$store.state.user.username
+      if (username) {
+        return {
+          user: username
+        }
+      }
+    },
     async getText() {
+      const reqParams = this.getReqParams()
       const storageName = this.getStorageName()
       try {
-        const res = await textStorageService.get(storageName)
+        const res = await textStorageService.get(storageName, reqParams)
         let resData
         try {
           resData = JSON.parse(res)
@@ -153,7 +163,8 @@ export default {
             fileNameList: this.fileNameList
           })
         }
-        await textStorageService.post(storageName, data)
+        const reqParams = this.getReqParams()
+        await textStorageService.post(storageName, data, reqParams)
         Toast.success('保存成功')
         localStorage.setItem(TEXT_STORAGE_STORAGE_NAME, this.storageName)
       } catch (error) {

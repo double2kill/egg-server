@@ -6,13 +6,13 @@ export default class SpairService {
   constructor(namespace) {
     this.namespace = namespace
   }
-  async list() {
-    const res = await axios.get(`${SPAIR}/${this.namespace}`)
+  async list(params) {
+    const res = await axios.get(`${SPAIR}/${this.namespace}`, { params })
     return res.data || []
   }
-  async get(key) {
+  async get(key, params) {
     const encodedKey = encodeURIComponent(key)
-    const res = await axios.get(`${SPAIR}/${this.namespace}/${encodedKey}`) || ''
+    const res = await axios.get(`${SPAIR}/${this.namespace}/${encodedKey}`, { params }) || ''
     const { data } = res
     if (typeof data !== 'string') {
       return data
@@ -24,14 +24,16 @@ export default class SpairService {
       return data
     }
   }
-  post(key, value) {
+  post(key, value, params) {
     const encodedKey = encodeURIComponent(key)
     return axios.post(`${SPAIR}/${this.namespace}/${encodedKey}`, {
       value
+    }, {
+      params
     })
   }
-  delete(key) {
+  delete(key, params) {
     const encodedKey = encodeURIComponent(key)
-    return axios.delete(`${SPAIR}/${this.namespace}/${encodedKey}`)
+    return axios.delete(`${SPAIR}/${this.namespace}/${encodedKey}`, { params })
   }
 }
