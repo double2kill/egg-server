@@ -8,6 +8,13 @@
     >
       <el-option v-for="item in namespaceList" :key="item" :label="item" :value="item" />
     </el-select>
+    <span class="sub-title">user</span>
+    <el-select
+      v-model="user"
+      filterable
+    >
+      <el-option v-for="item in userList" :key="item.value" :label="item.label" :value="item.value" />
+    </el-select>
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -74,7 +81,7 @@ import dateTime from '@/common/dateTime'
 import EditDialog from './EditDialog'
 import SpairService from '~/utils/SpairService'
 import { SPAIR_NAMESPACE } from '~/constants'
-const ADMIN = SPAIR_NAMESPACE.admin
+const { admin: ADMIN, user: USER } = SPAIR_NAMESPACE
 
 export default {
   components: {
@@ -88,11 +95,21 @@ export default {
       editForm: {},
       namespace: '',
       namespaceService: null,
-      namespaceList: []
+      namespaceList: [],
+      user: this.$store.state.user.username || '',
+      userList: []
+    }
+  },
+  watch: {
+    user(newValue, oldValue) {
+      if (newValue !== oldValue) {
+        this.fetchData()
+      }
     }
   },
   mounted() {
     this.fetchNamespaceList()
+    this.fetchUserList()
   },
   methods: {
     async fetchNamespaceList() {
@@ -120,9 +137,34 @@ export default {
         })
       }
     },
+    async fetchUserList() {
+      try {
+        const userService = new SpairService(USER)
+        const list = await userService.list()
+        let userList = list.map(item => ({ key: item.key, value: item.key }))
+        const defaultUser = [{ label: '游客', value: '' }]
+        userList = defaultUser.concat(userList)
+        this.userList = userList
+      } catch (error) {
+        this.$message({
+          showClose: true,
+          message: '服务器出错',
+          type: 'error'
+        })
+      }
+    },
+    getReqParams() {
+      const username = this.user
+      if (username) {
+        return {
+          user: username
+        }
+      }
+    },
     async fetchData() {
       try {
-        this.tableData = await this.namespaceService.list()
+        const reqParams = this.getReqParams()
+        this.tableData = await this.namespaceService.list(reqParams)
       } catch (error) {
         this.$message({
           showClose: true,
@@ -149,7 +191,8 @@ export default {
     },
     async handleEdit(key, value) {
       try {
-        await this.namespaceService.post(key, value)
+        const reqParams = this.getReqParams()
+        await this.namespaceService.post(key, value, reqParams)
         this.closeDialog()
         this.fetchData()
       } catch (error) {
@@ -162,7 +205,8 @@ export default {
     },
     async handleDelete(key) {
       try {
-        await this.namespaceService.delete(key)
+        const reqParams = this.getReqParams()
+        await this.namespaceService.delete(key, reqParams)
         this.fetchData()
       } catch (error) {
         this.$message({
