@@ -17,7 +17,7 @@
         <List v-if="active === 0" :handle-change-active-tab="handleChangeActiveTab" />
       </van-tab>
       <van-tab title="存储区">
-        <Storage v-if="active === 1" :storage-name-from-list="storageName" />
+        <Storage :storage-name-from-list="storageName" />
       </van-tab>
       <van-tab :title="username" :dot="logsDot">
         <User v-if="active === 2" />
@@ -53,6 +53,8 @@ export default {
   methods: {
     handleChangeActiveTab(active, storageName) {
       this.active = active
+      // eslint-disable-next-line no-console
+      console.log(storageName)
       this.storageName = storageName
     },
     handleAdd() {
