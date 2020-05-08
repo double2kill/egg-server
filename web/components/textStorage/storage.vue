@@ -73,6 +73,7 @@ export default {
       editorInit: {
         menubar: false,
         language: 'zh_CN',
+        max_height: 300,
         plugins: [
           'lists advlist',
           'autolink link',
