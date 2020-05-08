@@ -33,3 +33,19 @@ export const SPAIR_NAMESPACE = {
   textStorage: 'textStorage',
   user: 'user'
 }
+
+export const links = [
+  { href: '/textstorage', text: '临时存储区', page: 'index', target: '_self' },
+  { href: '/sshInfo', text: 'ssh信息', page: 'index', target: '_self' },
+  { href: 'http://table.greatwebtech.cn/', text: 'table', page: 'other' },
+  { href: 'http://hetenghuan.greatwebtech.cn/jenkins', text: 'jenkins', page: 'other' },
+  { href: 'http://code-craft.greatwebtech.cn/', text: 'code-craft', page: 'other' },
+  { href: 'http://birthday.greatwebtech.cn/', text: '生日快乐', page: 'other' },
+  { href: 'http://cmd.greatwebtech.cn/', text: '常用命令', page: 'other' },
+  { href: 'http://family.greatwebtech.cn/', text: 'family', page: 'other' },
+  { href: 'http://handsontable.greatwebtech.cn/', text: '云表格', page: 'other' },
+  { href: 'http://hanxiaoluan.greatwebtech.cn/', text: 'reactApp', page: 'other' }
+]
+
+export const othersLinks = links.filter(item => item.page === 'other')
+export const indexLinks = links.filter(item => item.page === 'index')

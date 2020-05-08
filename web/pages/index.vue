@@ -1,39 +1,33 @@
 <template>
   <section class="container">
     <div>
-      <logo />
       <h1 class="title">
         greatwebtech
       </h1>
       <h2 class="subtitle">
         好好学习，天天向上
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
-      </div>
+      <Links :links="links" />
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import Links from '~/components/links/index.vue'
+import { indexLinks } from '@/constants'
 
 export default {
   components: {
-    Logo
+    Links
   },
   head() {
     return {
       title: 'greatwebtech首页'
+    }
+  },
+  data() {
+    return {
+      links: indexLinks
     }
   }
 }
@@ -42,11 +36,11 @@ export default {
 <style>
 .container {
   margin: 0 auto;
-  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 15px;
 }
 
 .title {
@@ -65,6 +59,15 @@ export default {
   color: #526488;
   word-spacing: 5px;
   padding-bottom: 15px;
+}
+
+@media screen and (max-width: 992px) {
+  .title {
+    font-size: 50px;
+  }
+  .subtitle {
+    font-size: 30px;
+  }
 }
 
 .links {

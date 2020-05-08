@@ -1,15 +1,21 @@
 <template>
-  <OthersPage />
+  <Links :links="links" />
 </template>
 
 <script>
-import OthersPage from '~/components/others'
+import Links from '~/components/links'
 import head from '@/utils/getHead'
+import { othersLinks } from '@/constants'
 
 export default {
   components: {
-    OthersPage
+    Links
   },
-  head
+  head,
+  data() {
+    return {
+      links: othersLinks
+    }
+  }
 }
 </script>
