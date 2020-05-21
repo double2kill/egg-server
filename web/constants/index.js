@@ -14,6 +14,7 @@ export const routeList = [
   { path: '/sshInfo', name: 'ssh信息' },
   { path: '/list', name: '天气订阅' },
   { path: '/weather', name: '天气历史' },
+  { path: '/scripts', name: '脚本生成' },
   { path: '/questionnaire', name: '性格测评' },
   { path: '/timeLine', name: '时间线' },
   { path: '/todoList', name: 'TODO' },
