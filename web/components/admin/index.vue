@@ -15,6 +15,9 @@
     >
       <el-option v-for="item in userList" :key="item.value" :label="item.label" :value="item.value" />
     </el-select>
+    <el-button type="primary" style="float: right" @click="showEditDialog()">
+      新增key
+    </el-button>
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -175,7 +178,7 @@ export default {
     },
     showEditDialog(row) {
       this.dialogVisible = true
-      this.editForm = row
+      this.editForm = row || {}
     },
     closeDialog() {
       this.dialogVisible = false
