@@ -7,7 +7,12 @@
   >
     <el-form :model="form">
       <el-form-item label="key" :label-width="formLabelWidth">
-        {{ form.key }}
+        <el-input
+          v-model="form.key"
+          :readonly="!!editForm.key"
+          :class="{readonly: editForm.key}"
+          placeholder="请输入名字"
+        />
       </el-form-item>
       <el-form-item label="value" :label-width="formLabelWidth">
         <el-input
@@ -82,3 +87,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .readonly input {
+    background-color: #eee;
+  }
+</style>
