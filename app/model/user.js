@@ -7,6 +7,11 @@ module.exports = app => {
   const UserSchema = new Schema({
     user_id: String,
     github_info: Schema.Types.Mixed,
+  }, {
+    timestamps: {
+      createdAt: 'created_at',
+      updatedAt: 'updated_at',
+    },
   });
 
   return mongoose.model('User', UserSchema);
