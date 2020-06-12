@@ -6,8 +6,11 @@ class UsersService extends Service {
   async findUser(user_id) {
     const { User } = this.ctx.model;
     const targetUser = await User.findOne({ user_id });
+    if (!targetUser) {
+      return null;
+    }
     const { updated_at } = targetUser;
-    if (moment().subtract(10, 'seconds').valueOf() > moment(updated_at).valueOf()) {
+    if (moment().subtract(1, 'day').valueOf() > moment(updated_at).valueOf()) {
       return null;
     }
     return await User.findOne({ user_id });
