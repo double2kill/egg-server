@@ -42,7 +42,7 @@ export default {
   methods: {
     onSubmit(values) {
       this.$store.dispatch('user/signup', {
-        $cookie: this.$cookies,
+        $cookies: this.$cookies,
         username: values.username,
         password: values.password
       }).then(() => {

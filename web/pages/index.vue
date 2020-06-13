@@ -1,9 +1,12 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="title">
+      <h1 v-if="!username" class="title">
         greatwebtech
       </h1>
+      <h2 v-if="username" class="title">
+        你好, {{ username }}!
+      </h2>
       <h2 class="subtitle">
         好好学习，天天向上
       </h2>
@@ -27,7 +30,34 @@ export default {
   },
   data() {
     return {
+      userName: '',
       links: indexLinks
+    }
+  },
+  computed: {
+    username() {
+      return this.$store.state.user.username || ''
+    }
+  },
+  mounted() {
+    const { query } = this.$router.history.current
+    if (query.user) {
+      this.setUser(query.user)
+      this.$router.push({
+        path: '/',
+        query: {
+          ...query,
+          user: undefined
+        }
+      })
+    }
+  },
+  methods: {
+    setUser(username) {
+      this.$store.dispatch('user/setUsername', {
+        username,
+        $cookies: this.$cookies
+      })
     }
   }
 }

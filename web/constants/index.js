@@ -19,6 +19,7 @@ export const routeList = [
   { path: '/timeLine', name: '时间线' },
   { path: '/todoList', name: 'TODO' },
   { path: '/others', name: '其他' },
+  { path: '/login', name: '登录' },
   { path: '/admin', name: '管理员后台', mode: 'admin' }
 ]
 
