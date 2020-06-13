@@ -17,18 +17,24 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit }, { username, password, $cookie }) {
+  setUsername({ commit }, { username, $cookies }) {
+    commit('login', username)
+    $cookies.set(COOKIE.USER_NAME, username)
+  },
+  async login({ dispatch }, { username, password, $cookies }) {
     const userInfo = await UserService.get(username)
     const sha256Password = SHA256(password).toString()
     const isCorrectUser = userInfo.password === sha256Password
     if (isCorrectUser) {
-      commit('login', username)
-      $cookie.set(COOKIE.USER_NAME, username)
+      dispatch('setUsername', {
+        username,
+        $cookies
+      })
     } else {
       throw new Error('登录失败')
     }
   },
-  async signup({ commit }, { username, password, $cookie }) {
+  async signup({ dispatch }, { username, password, $cookies }) {
     const user = await UserService.get(username)
     if (user) {
       throw new Error('用户已存在')
@@ -37,11 +43,13 @@ export const actions = {
     await UserService.post(username, {
       password: sha256Password
     })
-    commit('login', username)
-    $cookie.set(COOKIE.USER_NAME, username)
+    dispatch('setUsername', {
+      username,
+      $cookies
+    })
   },
-  logout({ commit }, { username, $cookie }) {
+  logout({ commit }, { username, $cookies }) {
     commit('logout')
-    $cookie.set(COOKIE.USER_NAME, username)
+    $cookies.set(COOKIE.USER_NAME, username)
   }
 }

@@ -46,7 +46,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$store.dispatch('user/logout', {
-          $cookie: this.$cookies
+          $cookies: this.$cookies
         })
       })
     }
