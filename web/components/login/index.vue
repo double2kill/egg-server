@@ -19,7 +19,7 @@ export default {
   methods: {
     handleGithubLogin() {
       const { query } = this.$router.history.current
-      const queryStr = qs.stringify(query)
+      const queryStr = encodeURIComponent(qs.stringify(query))
       location.href = `${EGG_SERVER}/?backURL=${location.origin}?${queryStr}`
     }
   }
