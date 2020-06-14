@@ -33,7 +33,10 @@ class HomeController extends Controller {
 
     if (backURL) {
       ctx.cookies.set(BACK_URL, null);
-      await ctx.redirect(`${backURL}?user=${userName}`);
+      const url = backURL.includes('?')
+        ? `${backURL}&user=${userName}`
+        : `${backURL}?user=${userName}`;
+      await ctx.redirect(url);
       return;
     }
     this.ctx.body = `Hi, ${userName}!`;
