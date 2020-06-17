@@ -36,7 +36,7 @@
       </van-field>
     </van-cell-group>
     <div class="submit-group">
-      <van-button type="primary" @click="submitText">
+      <van-button type="primary" @click="saveText">
         提交
       </van-button>
     </div>
@@ -46,10 +46,11 @@
 <script>
 import { Toast } from 'vant'
 import Editor from '@tinymce/tinymce-vue'
+import axios from 'axios'
+import lodash from 'lodash'
 import { textStorageService } from './service'
 import { TEXT_STORAGE_STORAGE_NAME, defaultStorageName } from './data'
 import Upload from './common/upload'
-import axios from 'axios'
 import { EGG_SERVER } from '@/constants'
 
 export default {
@@ -69,6 +70,7 @@ export default {
       apiKey: '27pm3mknbtxqaw8n3aq9g9vh7f4oyz1p75zeundv79mjmyty',
       fileNameList: [],
       storageName: defaultStorageName,
+      initialText: '',
       text: '',
       editorInit: {
         menubar: false,
@@ -104,13 +106,18 @@ export default {
     storageNameFromList(val) {
       if (val === 'add') {
         this.storageName = ''
-        this.text = ''
+        this.setInitialText('')
         this.fileNameList = []
         this.$refs.storageName.focus()
         return
       }
       this.storageName = val
       this.getText()
+    },
+    text(val) {
+      if (val !== this.initialText) {
+        this.saveText()
+      }
     }
   },
   async mounted() {
@@ -120,6 +127,13 @@ export default {
     this.getText()
   },
   methods: {
+    setInitialText(val) {
+      this.initialText = val
+      this.text = val
+    },
+    saveText: lodash.debounce(function () {
+      this.submitText()
+    }, 2000),
     getStorageName() {
       return this.storageName || defaultStorageName
     },
@@ -143,10 +157,10 @@ export default {
           resData = res
         }
         if (typeof resData === 'object') {
-          this.text = resData.text
+          this.setInitialText(resData.text)
           this.fileNameList = resData.fileNameList
         } else {
-          this.text = res
+          this.setInitialText(res)
           this.fileNameList = []
         }
       } catch (error) {
