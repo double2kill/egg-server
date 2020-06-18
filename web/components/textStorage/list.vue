@@ -72,6 +72,7 @@ export default {
         await textStorageService.delete(delItem.key, reqParams)
         const { key } = delItem
         this.list = this.list.filter(item => item.key !== key)
+        this.handleChangeActiveTab(0, '')
       }).catch(() => {
         // on cancel
       })

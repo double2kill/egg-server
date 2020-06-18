@@ -103,17 +103,6 @@ export default {
     }
   },
   watch: {
-    storageNameFromList(val) {
-      if (val === 'add') {
-        this.storageName = ''
-        this.setInitialText('')
-        this.fileNameList = []
-        this.$refs.storageName.focus()
-        return
-      }
-      this.storageName = val
-      this.getText()
-    },
     text(val) {
       if (val !== this.initialText) {
         this.saveText()
@@ -121,9 +110,19 @@ export default {
     }
   },
   async mounted() {
-    const reqParams = this.getReqParams()
-    const list = await textStorageService.list(reqParams)
-    this.storageName = list.length > 0 ? list[0].key : defaultStorageName
+    if (this.storageNameFromList === 'add') {
+      this.storageName = ''
+      this.$refs.storageName.focus()
+      return
+    }
+    if (this.storageNameFromList !== '') {
+      this.storageName = this.storageNameFromList
+    } else {
+      const reqParams = this.getReqParams()
+      const list = await textStorageService.list(reqParams)
+      this.storageName = list.length > 0 ? list[0].key : defaultStorageName
+    }
+
     this.getText()
   },
   methods: {

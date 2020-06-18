@@ -17,7 +17,7 @@
         <List v-if="active === 0" :handle-change-active-tab="handleChangeActiveTab" />
       </van-tab>
       <van-tab title="存储区">
-        <Storage :storage-name-from-list="storageName" />
+        <Storage v-if="active === 1" :storage-name-from-list="storageName" />
       </van-tab>
       <van-tab :title="username" :dot="logsDot">
         <User v-if="active === 2" />
@@ -50,11 +50,16 @@ export default {
       return this.$store.state.user.username || '游客'
     }
   },
+  watch: {
+    username(val, oldVal) {
+      if (val !== oldVal) {
+        this.storageName = ''
+      }
+    }
+  },
   methods: {
     handleChangeActiveTab(active, storageName) {
       this.active = active
-      // eslint-disable-next-line no-console
-      console.log(storageName)
       this.storageName = storageName
     },
     handleAdd() {
