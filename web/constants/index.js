@@ -5,7 +5,8 @@ export default {
 
 export const EGG_SERVER = 'http://www.greatwebtech.cn:7001'
 export const COOKIE = {
-  USER_NAME: 'USER_NAME'
+  USER_NAME: 'USER_NAME',
+  GITHUB_USER_NAME: 'GITHUB_USER_NAME'
 }
 
 export const routeList = [

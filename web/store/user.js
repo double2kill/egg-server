@@ -1,6 +1,7 @@
 import { COOKIE, SPAIR_NAMESPACE } from '@/constants'
 import SpairService from '@/utils/SpairService'
 import SHA256 from 'crypto-js/sha256'
+import { findByGithubUser } from '@/utils/UserUtils'
 const UserService = new SpairService(SPAIR_NAMESPACE.user)
 
 export const state = () => ({
@@ -8,6 +9,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  githubLogin(state, username) {
+    state.githubUsername = username
+  },
   login(state, username) {
     state.username = username
   },
@@ -20,6 +24,14 @@ export const actions = {
   setUsername({ commit }, { username, $cookies }) {
     commit('login', username)
     $cookies.set(COOKIE.USER_NAME, username)
+  },
+  async setGithubUsername({ commit }, { username, $cookies }) {
+    const loginUser = await findByGithubUser(username)
+    if (loginUser) {
+      debugger
+    }
+    commit('githubLogin', username)
+    $cookies.set(COOKIE.GITHUB_USER_NAME, username)
   },
   async login({ dispatch }, { username, password, $cookies }) {
     const userInfo = await UserService.get(username)

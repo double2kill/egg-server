@@ -36,13 +36,13 @@ export default {
   },
   computed: {
     username() {
-      return this.$store.state.user.username || ''
+      return this.$store.state.user.githubUsername || ''
     }
   },
   mounted() {
     const { query } = this.$router.history.current
     if (query.user) {
-      this.setUser(query.user)
+      this.setGithubUser(query.user)
       this.$router.push({
         path: '/',
         query: {
@@ -53,8 +53,8 @@ export default {
     }
   },
   methods: {
-    setUser(username) {
-      this.$store.dispatch('user/setUsername', {
+    setGithubUser(username) {
+      this.$store.dispatch('user/setGithubUsername', {
         username,
         $cookies: this.$cookies
       })
