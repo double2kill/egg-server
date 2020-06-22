@@ -5,18 +5,38 @@
     mode="horizontal"
     @select="handleSelect"
   >
-    <el-menu-item
-      v-for="route in hasPermisionMenuRoutes"
-      :key="route.path"
-      :index="route.path"
+    <template
+      v-for="(route, index) in hasPermisionMenuRoutes"
     >
-      {{ route.name }}
-    </el-menu-item>
+      <el-menu-item
+        v-if="!route.subMenuRouteList"
+        :key="route.path"
+        :index="route.path"
+      >
+        {{ route.name }}
+      </el-menu-item>
+      <el-submenu
+        v-else
+        :key="index"
+        :index="index"
+      >
+        <template slot="title">
+          {{ route.name }}
+        </template>
+        <el-menu-item
+          v-for="subRoute in route.subMenuRouteList"
+          :key="subRoute.path"
+          :index="subRoute.path"
+        >
+          {{ subRoute.name }}
+        </el-menu-item>
+      </el-submenu>
+    </template>
   </el-menu>
 </template>
 
 <script>
-import { routeList } from '@/constants'
+import { routeList, routeNameMap } from '@/constants'
 
 const adminExtraMenu = [
   { path: '/admin', name: '切换至管理员模式' },
@@ -29,16 +49,21 @@ export default {
     const { history, options } = this.$router
     const { path, query } = history.current
 
-    const extraRoutes = options.routes
+    const RoutesNotInConfig = options.routes
       .filter((route) => {
-        const isOneOfRouteList = routeList.some(item => item.path === route.path)
+        const isOneOfRouteList = Object.keys(routeNameMap).some(item => item === route.path)
         return !isOneOfRouteList
       })
 
     return {
       mode: query.mode,
       defaultMenu: path,
-      menuRoutes: routeList.concat(extraRoutes)
+      menuRoutes: RoutesNotInConfig.length > 0
+        ? routeList.concat({
+          name: '未配置的路由',
+          subMenuRouteList: RoutesNotInConfig
+        })
+        : routeList
     }
   },
   computed: {

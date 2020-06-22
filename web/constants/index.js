@@ -11,22 +11,34 @@ export const COOKIE = {
 
 export const routeList = [
   { path: '/', name: '首页' },
+
   { path: '/textStorage', name: '临时存储区' },
   { path: '/sshInfo', name: 'ssh信息' },
-  { path: '/list', name: '天气订阅' },
   { path: '/weather', name: '天气历史' },
-  { path: '/scripts', name: '脚本生成' },
-  { path: '/questionnaire', name: '性格测评' },
-  { path: '/timeLine', name: '时间线' },
-  { path: '/todoList', name: 'TODO' },
-  { path: '/others', name: '其他' },
+  {
+    name: '其它服务',
+    subMenuRouteList: [
+      { path: '/list', name: '天气订阅' },
+      { path: '/scripts', name: '脚本生成' },
+      { path: '/questionnaire', name: '性格测评' },
+      { path: '/timeLine', name: '时间线' },
+      { path: '/todoList', name: 'TODO' }
+    ]
+  },
+  { path: '/others', name: '其它网站' },
   { path: '/login', name: '登录' },
   { path: '/admin', name: '管理员后台', mode: 'admin' }
 ]
 
 export const routeNameMap = routeList.reduce((map, item) => {
-  const { path, name } = item
-  map[path] = name
+  const { path, name, subMenuRouteList } = item
+  if (subMenuRouteList) {
+    subMenuRouteList.forEach((route) => {
+      map[route.path] = route.name
+    })
+  } else {
+    map[path] = name
+  }
   return map
 }, {})
 
