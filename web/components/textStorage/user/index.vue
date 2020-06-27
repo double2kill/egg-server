@@ -14,6 +14,7 @@
 
 <script>
 
+import { Dialog } from 'vant'
 import Logs from './logs'
 import Login from './login'
 import SignUp from './signup'
@@ -40,10 +41,9 @@ export default {
       this.route = route
     },
     handleLogout() {
-      this.$confirm('确定要登出', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+      Dialog.confirm({
+        title: '登出',
+        message: '确定要登出'
       }).then(() => {
         this.$store.dispatch('user/logout', {
           $cookies: this.$cookies
