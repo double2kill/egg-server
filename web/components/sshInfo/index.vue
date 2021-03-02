@@ -29,12 +29,8 @@ export default {
           label: '连学军'
         },
         {
-          value: 'John',
-          label: 'John'
-        },
-        {
-          value: 'hizon',
-          label: 'hizon'
+          value: 'Sumail',
+          label: '谢斌'
         },
         {
           value: 'root',
