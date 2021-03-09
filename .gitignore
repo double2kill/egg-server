@@ -12,3 +12,4 @@ run/
 *.un~
 shouldnotpublic.js
 /app/public
+/app/service/oldServerSSHInfo.log

@@ -1,12 +1,15 @@
 'use strict';
 const Service = require('egg').Service;
+const moment = require('moment');
+const path = require('path');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
-const moment = require('moment');
+const FILE_NAME = 'oldServerSSHInfo.log';
+const sshInfoPath = path.join(__dirname, FILE_NAME);
 
-class SSHInfoService extends Service {
+module.exports = class OldSSHInfoService extends Service {
   async getInfo(user = 'liuchen') {
-    const cmd = `who /var/log/wtmp | grep ${user} | awk '{print $1,$2,$3,$4,$5}'`;
+    const cmd = `cat ${sshInfoPath} | grep ${user} | awk '{print $1,$2,$3,$4,$5,$6,$7}'`;
     const { stdout, stderr } = await exec(cmd);
     if (stderr) {
       throw new Error(stderr);
@@ -16,8 +19,7 @@ class SSHInfoService extends Service {
 
   JSONMap(data) {
     const info = data.split('\n').filter(item => !!item).map(item => {
-      const [ name, terminal, time1, time2, ip ] = item.split(' ');
-      const year = moment().format('YYYY');
+      const [ name, terminal, year, time1, time2, ip ] = item.split(' ');
       const time = moment(`${year} ${time1} ${time2}`).valueOf();
       return {
         name, terminal, time, ip,
@@ -25,6 +27,4 @@ class SSHInfoService extends Service {
     });
     return info;
   }
-}
-
-module.exports = SSHInfoService;
+};

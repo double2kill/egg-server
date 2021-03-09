@@ -6,8 +6,11 @@ class SSHInfoController extends Controller {
   async index() {
     const { ctx } = this;
     const { user } = ctx.req.query;
-    const data = await ctx.service.sshInfo.getInfo(user);
-    this.ctx.body = data;
+    const [ oldServerData, data ] = await Promise.all([
+      ctx.service.oldServerSSHInfo.getInfo(user),
+      ctx.service.sshInfo.getInfo(user),
+    ]);
+    this.ctx.body = [ ...oldServerData, ...data ];
   }
 }
 
