@@ -9,6 +9,8 @@ export const COOKIE = {
   GITHUB_USER_NAME: 'GITHUB_USER_NAME'
 }
 
+export const MONGODB_SERVER_URL = `${EGG_SERVER}/v0.1/mongodb`
+
 export const routeList = [
   { path: '/', name: '首页' },
 
@@ -27,7 +29,8 @@ export const routeList = [
   },
   { path: '/others', name: '其它网站' },
   { path: '/login', name: '登录' },
-  { path: '/admin', name: '管理员后台', mode: 'admin' }
+  { path: '/admin', name: '管理员后台', mode: 'admin' },
+  { path: '/mongodb', name: 'MongoDB', mode: 'admin' }
 ]
 
 export const routeNameMap = routeList.reduce((map, item) => {

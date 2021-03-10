@@ -27,9 +27,10 @@ module.exports = appInfo => {
   };
 
   config.cors = {
-    origin: '*',
-    allowMethods: 'GET',
+    credentials: true,
   };
+
+  config.security = { domainWhiteList: [ 'www.greatwebtech.cn' ] };
 
   exports.passportLocal = {
     usernameField: 'name',
