@@ -31,7 +31,7 @@
     "graphql-tag": "^2.10.1",
     "koa": "^2.6.2",
     "mand-mobile": "^2.5.7",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "nuxt": "^2.12.2",
     "nuxt-user-agent": "^1.2.2",
     "validator": "^13.7.0",
