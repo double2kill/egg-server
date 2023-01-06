@@ -32,7 +32,7 @@
     "koa": "^2.6.2",
     "mand-mobile": "^2.5.7",
     "moment": "^2.24.0",
-    "nuxt": "^2.12.2",
+    "nuxt": "^2.15.8",
     "nuxt-user-agent": "^1.2.2",
     "validator": "^13.7.0",
     "vant": "^2.7.1",
@@ -58,7 +58,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "jest": "^27.5.1",
     "nodemon": "^2.0.3",
-    "vue-jest": "^3.0.3"
+    "vue-jest": "^4.0.1"
   },
   "config": {
     "commitizen": {
