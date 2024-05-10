@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import echarts from "echarts";
+import * as echarts from "echarts";
 import { EGG_SERVER } from "~/constants";
 import { getOptions } from "./helper";
 
