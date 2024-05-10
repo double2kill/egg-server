@@ -15,7 +15,7 @@
       placeholder="密码"
       :rules="[{ required: true, message: '请填写密码' }]"
     />
-    <div style="margin: 16px;">
+    <div style="margin: 16px">
       <van-button round block type="info" native-type="submit">
         登录
       </van-button>
@@ -24,37 +24,39 @@
 </template>
 
 <script>
-
 export default {
-  name: 'Login',
+  name: "Login",
   props: {
     routeGoto: {
       default: () => {},
-      type: Function
-    }
+      type: Function,
+    },
   },
   data() {
     return {
-      username: '',
-      password: ''
-    }
+      username: "",
+      password: "",
+    };
   },
   methods: {
     onSubmit(values) {
-      this.$store.dispatch('user/login', {
-        $cookies: this.$cookies,
-        username: values.username,
-        password: values.password
-      }).then(() => {
-        this.routeGoto('')
-      }).catch((err) => {
-        this.$message({
-          showClose: true,
-          message: err.message,
-          type: 'error'
+      this.$store
+        ?.dispatch?.("user/login", {
+          $cookies: this.$cookies,
+          username: values.username,
+          password: values.password,
         })
-      })
-    }
-  }
-}
+        .then(() => {
+          this.routeGoto("");
+        })
+        .catch((err) => {
+          this.$message({
+            showClose: true,
+            message: err.message,
+            type: "error",
+          });
+        });
+    },
+  },
+};
 </script>

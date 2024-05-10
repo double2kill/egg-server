@@ -1,70 +1,79 @@
 <template>
   <div class="sshInfo">
     用户
-    <el-select v-model="user" clearable placeholder="请选择用户" @change="handleSelect">
-      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
+    <el-select
+      v-model="user"
+      clearable
+      placeholder="请选择用户"
+      @change="handleSelect"
+    >
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      />
     </el-select>
     <div id="sshInfo" class="echart" />
   </div>
 </template>
 
 <script>
-import echarts from 'echarts'
-import axios from 'axios'
-import { EGG_SERVER } from '~/constants'
-import { getOptions } from './helper'
+import echarts from "echarts";
+import { EGG_SERVER } from "~/constants";
+import { getOptions } from "./helper";
 
 export default {
-  name: '',
+  name: "",
   data() {
     return {
-      charts: '',
+      charts: "",
       options: [
         {
-          value: 'liuchen',
-          label: '刘晨'
+          value: "liuchen",
+          label: "刘晨",
         },
         {
-          value: 'Mikelian',
-          label: '连学军'
+          value: "Mikelian",
+          label: "连学军",
         },
         {
-          value: 'Sumail',
-          label: '谢斌'
+          value: "Sumail",
+          label: "谢斌",
         },
         {
-          value: 'root',
-          label: 'root'
-        }
+          value: "root",
+          label: "root",
+        },
       ],
-      user: 'liuchen'
-    }
+      user: "liuchen",
+    };
   },
   async mounted() {
-    const user = 'liuchen'
-    await this.getInfo(user)
+    const user = "liuchen";
+    await this.getInfo(user);
   },
   methods: {
     drawEcharts(id, data, user) {
-      this.charts = echarts.init(document.getElementById(id))
-      const options = getOptions(data || [], user)
-      this.charts.setOption(options)
+      this.charts = echarts.init(document.getElementById(id));
+      const options = getOptions(data || [], user);
+      this.charts.setOption(options);
     },
     handleSelect(user) {
       if (user) {
-        this.getInfo(user)
+        this.getInfo(user);
       }
     },
     async getInfo(user) {
-      const result = await axios.get(`${EGG_SERVER}/v0.1/sshInfo`, {
+      const result = await $fetch(`${EGG_SERVER}/v0.1/sshInfo`, {
         params: {
-          user
-        }
-      })
-      this.drawEcharts('sshInfo', result.data, user)
-    }
-  }
-}
+          user,
+        },
+      });
+      this.drawEcharts("sshInfo", result.data, user);
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

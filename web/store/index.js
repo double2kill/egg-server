@@ -1,10 +1,13 @@
-import { COOKIE } from '@/constants'
+import { defineStore } from "pinia";
 
-export const actions = {
-  nuxtServerInit({ commit }, { app }) {
-    const githubUsername = app.$cookies.get(COOKIE.GITHUB_USER_NAME)
-    commit('user/githubLogin', githubUsername)
-    const username = app.$cookies.get(COOKIE.USER_NAME)
-    commit('user/login', username)
-  }
-}
+export const useMainStore = defineStore("main", {
+  state: () => ({
+    counter: 0,
+  }),
+  actions: {
+    increment() {
+      // `this` is the store instance
+      this.counter++;
+    },
+  },
+});

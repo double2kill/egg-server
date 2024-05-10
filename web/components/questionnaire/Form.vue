@@ -12,56 +12,63 @@
 </template>
 
 <script>
-import { Field, CheckList, ActionBar, Toast } from 'mand-mobile'
-import data from './data'
-const { title, questions } = data
+import { Field, CheckList, ActionBar, Toast } from "mand-mobile-next";
+import data from "./data";
+const { title, questions } = data;
 
 export default {
   components: {
     [Field.name]: Field,
     [CheckList.name]: CheckList,
-    [ActionBar.name]: ActionBar
+    [ActionBar.name]: ActionBar,
   },
   props: {
     savedChecked: {
       default: () => [],
-      type: Array
+      type: Array,
     },
     showResult: {
       default() {},
-      type: Function
-    }
+      type: Function,
+    },
   },
   data() {
     return {
       title,
       checked: [],
       questions,
-      data: [{
-        text: '保存',
-        onClick: this.handleSave
-      },
-      {
-        text: '提交',
-        onClick: this.handleSubmit
-      }]
-    }
+      data: [
+        {
+          text: "保存",
+          onClick: this.handleSave,
+        },
+        {
+          text: "提交",
+          onClick: this.handleSubmit,
+        },
+      ],
+    };
   },
   mounted() {
-    this.checked = this.savedChecked
+    this.checked = this.savedChecked;
   },
   methods: {
     handleSave() {
-      localStorage.setItem('savedQuestionareData', JSON.stringify(this.checked))
-      Toast.succeed('保存成功')
+      localStorage.setItem(
+        "savedQuestionareData",
+        JSON.stringify(this.checked)
+      );
+      Toast.succeed("保存成功");
     },
     handleSubmit() {
-      localStorage.setItem('submitedQuestionareData', JSON.stringify(this.checked))
-      this.showResult(this.checked)
-    }
-  }
-}
-
+      localStorage.setItem(
+        "submitedQuestionareData",
+        JSON.stringify(this.checked)
+      );
+      this.showResult(this.checked);
+    },
+  },
+};
 </script>
 
 <style>
@@ -77,7 +84,7 @@ export default {
   margin-right: 20px;
 }
 
-.md-example-child .md-cell-item-brief{
+.md-example-child .md-cell-item-brief {
   margin-top: 0px;
 }
 
@@ -87,6 +94,6 @@ export default {
   margin-bottom: 0px;
 }
 .action-bar .md-button-inner {
-  font-size:28px;
+  font-size: 28px;
 }
 </style>

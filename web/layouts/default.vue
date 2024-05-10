@@ -1,47 +1,47 @@
 <template>
   <div>
     <homeMenu v-if="showMenu" />
-    <nuxt class="page-content" :class="{pageWithoutMenu: !showMenu}" />
+    <NuxtPage class="page-content" :class="{ pageWithoutMenu: !showMenu }" />
     <Footer />
   </div>
 </template>
 
 <script>
-import homeMenu from './menu'
-import Footer from './footer'
+import homeMenu from "./menu";
+import Footer from "./footer";
 
 export default {
   components: {
     homeMenu,
-    Footer
+    Footer,
   },
   data() {
     return {
-      showMenu: false
-    }
+      showMenu: false,
+    };
   },
   created() {
-    this.showMenu = this.getShowMenu()
+    this.showMenu = this.getShowMenu();
   },
   methods: {
     getShowMenu() {
-      if (this.$ua.isFromSmartphone()) {
-        return false
-      }
-      const { path, query } = this.$router.history.current
-      if (path === '/') {
-        return true
-      }
-      return query.showMenu
-    }
-  }
-}
+      // if (this.$ua.isFromSmartphone()) {
+      //   return false
+      // }
+      // const { path, query } = this.$router.history.current;
+      // if (path === "/") {
+      return true;
+      // }
+      // return query.showMenu;
+    },
+  },
+};
 </script>
 
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -88,10 +88,10 @@ html {
 }
 
 .page-content {
-  min-height: 70vh
+  min-height: 70vh;
 }
 
 .pageWithoutMenu {
-  min-height: 80vh
+  min-height: 80vh;
 }
 </style>

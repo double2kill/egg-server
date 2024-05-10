@@ -27,45 +27,44 @@
 </template>
 
 <script>
-import { MONGODB_SERVER_URL } from '@/constants'
-import axios from 'axios'
-import moment from 'moment'
-moment.locale('zh-cn')
+import { MONGODB_SERVER_URL } from "@/constants";
+import moment from "moment";
+moment.locale("zh-cn");
 
 export default {
   data() {
     return {
       tableData: [],
       dialogVisible: false,
-      detail: {}
-    }
+      detail: {},
+    };
   },
   mounted() {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     async fetchData() {
-      const result = await axios.get(MONGODB_SERVER_URL, {
-        projection: 'user_id',
-        withCredentials: true
-      })
+      const result = await $fetch(MONGODB_SERVER_URL, {
+        projection: "user_id",
+        withCredentials: true,
+      });
       this.tableData = result.data.map((item) => {
         return {
           ...item,
-          updated_at: moment(item.updated_at).format('lll'),
-          created_at: moment(item.created_at).format('lll')
-        }
-      })
+          updated_at: moment(item.updated_at).format("lll"),
+          created_at: moment(item.created_at).format("lll"),
+        };
+      });
     },
     handleClick(row) {
-      this.dialogVisible = true
+      this.dialogVisible = true;
       this.detail = {
         user_id: row.user_id,
-        content: JSON.stringify(row.github_info, null, 2)
-      }
-    }
-  }
-}
+        content: JSON.stringify(row.github_info, null, 2),
+      };
+    },
+  },
+};
 </script>
 
 <style>

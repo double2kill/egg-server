@@ -8,21 +8,16 @@
       node-key="id"
     >
       <span slot-scope="{ node }">
-        <span :class="{ 'line-through': node.checked }">{{
-          node.label
-        }}</span>
+        <span :class="{ 'line-through': node.checked }">{{ node.label }}</span>
       </span>
     </el-tree>
-    <el-button type="primary" @click="handleClick">
-      保存
-    </el-button>
+    <el-button type="primary" @click="handleClick"> 保存 </el-button>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import URL from '../../constants'
-import { originData, formatData } from './data'
+import URL from "../../constants";
+import { originData, formatData } from "./data";
 
 export default {
   data() {
@@ -30,43 +25,46 @@ export default {
       initialCheckedKeys: [],
       data: formatData(originData),
       defaultProps: {
-        children: 'children',
-        label: 'label'
-      }
-    }
+        children: "children",
+        label: "label",
+      },
+    };
   },
   created() {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     async handleClick() {
-      const checkedKeys = this.$refs.tree.getCheckedKeys()
-      await axios.post(`${URL.CMD}/todo_list`, {
-        data: {
-          checkedKeys,
-          todoList: originData
+      const checkedKeys = this.$refs.tree.getCheckedKeys();
+      await $fetch(`${URL.CMD}/todo_list`, {
+        method: "POST",
+        body: {
+          data: {
+            checkedKeys,
+            todoList: originData,
+          },
+          update_time: new Date().valueOf(),
         },
-        update_time: new Date().valueOf()
-      })
+      });
       this.$message({
         showClose: true,
-        message: '恭喜你，保存成功了！',
-        type: 'success'
-      })
+        message: "恭喜你，保存成功了！",
+        type: "success",
+      });
     },
     async fetchData() {
-      const response = await axios.get(`${URL.CMD}/todo_list`, {
+      const response = await $fetch(`${URL.CMD}/todo_list`, {
         params: {
-          _sort: 'update_time',
-          _order: 'desc'
-        }
-      })
-      const { data } = response
-      const { checkedKeys } = data[0].data
-      this.$refs.tree.setCheckedKeys(checkedKeys)
-    }
-  }
-}
+          _sort: "update_time",
+          _order: "desc",
+        },
+      });
+      const { data } = response;
+      const { checkedKeys } = data[0].data;
+      this.$refs.tree.setCheckedKeys(checkedKeys);
+    },
+  },
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

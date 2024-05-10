@@ -8,28 +8,28 @@
 </template>
 
 <script>
-import qs from 'querystring'
-import githubIcon from './github-icon'
-import { EGG_SERVER } from '@/constants'
+import qs from "querystring";
+import githubIcon from "./github-icon";
+import { EGG_SERVER } from "@/constants";
 
 export default {
   components: {
-    'github-icon': githubIcon
+    "github-icon": githubIcon,
   },
   methods: {
     handleGithubLogin() {
-      const { query } = this.$router.history.current
-      const queryStr = encodeURIComponent(qs.stringify(query))
-      location.href = `${EGG_SERVER}/?backURL=${location.origin}?${queryStr}`
-    }
-  }
-}
+      // const { query } = this.$router.history.current
+      // const queryStr = encodeURIComponent(qs.stringify(query))
+      // location.href = `${EGG_SERVER}/?backURL=${location.origin}?${queryStr}`
+    },
+  },
+};
 </script>
 
 <style>
-    .login-page {
-        padding: 15px;
-        max-width: 1024px;
-        margin: 0 auto;
-    }
+.login-page {
+  padding: 15px;
+  max-width: 1024px;
+  margin: 0 auto;
+}
 </style>
