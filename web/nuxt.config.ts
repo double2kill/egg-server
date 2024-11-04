@@ -1,6 +1,7 @@
 const pkg = require("./package");
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2024-11-04',
   devtools: { enabled: true },
   app: {
     head: {
@@ -11,26 +12,11 @@ export default defineNuxtConfig({
         { hid: "description", name: "description", content: pkg.description },
       ],
       link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-      script: [
-        {
-          innerHTML: `
-            var _hmt = _hmt || [];
-            (function() {
-              var hm = document.createElement("script");
-              hm.src = "https://hm.baidu.com/hm.js?350aab8bc892a5990e0c3d9c3788c4ab";
-              var s = document.getElementsByTagName("script")[0]; 
-              s.parentNode.insertBefore(hm, s);
-            })();
-          `,
-          type: "text/javascript",
-          async: "true",
-        },
-      ],
+      script: [],
     },
   },
   css: ["assets/main.css"],
   plugins: [
-    { src: "@/plugins/element-ui", ssr: true },
     { src: "@/plugins/ckeditor", mode: "client" },
   ],
   modules: ["@element-plus/nuxt", "@pinia/nuxt"],
