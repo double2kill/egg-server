@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const Controller = require('egg').Controller;
+const Controller = require("egg").Controller;
 
-const BACK_URL = 'BACK_URL';
-const USER_NAME = 'USER_NAME';
+const BACK_URL = "BACK_URL";
+const USER_NAME = "USER_NAME";
 
 class HomeController extends Controller {
   async index() {
@@ -19,7 +19,7 @@ class HomeController extends Controller {
     // 未登录
     if (!user) {
       ctx.session.returnTo = ctx.path;
-      await ctx.redirect('/passport/github');
+      await ctx.redirect("/passport/github");
       return;
     }
 
@@ -33,7 +33,7 @@ class HomeController extends Controller {
 
     if (backURL) {
       ctx.cookies.set(BACK_URL, null);
-      const url = backURL.includes('?')
+      const url = backURL?.includes("?")
         ? `${backURL}&user=${userName}`
         : `${backURL}?user=${userName}`;
       await ctx.redirect(url);

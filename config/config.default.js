@@ -1,12 +1,18 @@
 'use strict';
-const moreConfig = require('../shouldnotpublic.js');
+let moreConfig;
+try {
+  moreConfig = require('../shouldnotpublic.js');
+} catch (err) {
+  console.error('请先创建 shouldnotpublic.js 文件并配置相关信息');
+  throw new Error('请先创建 shouldnotpublic.js 文件并配置相关信息');
+}
 
 const isInnerIp = ip => {
   return true;
 };
 
 module.exports = appInfo => {
-  const config = exports = {};
+  const config = (exports = {});
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_15959262317_1019';
@@ -28,9 +34,18 @@ module.exports = appInfo => {
 
   config.cors = {
     credentials: true,
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
+    allowHeaders: [ 'Content-Type', 'Authorization', 'X-Requested-With' ],
+    exposeHeaders: [ 'Content-Disposition' ],
   };
 
-  config.security = { domainWhiteList: [ 'www.greatwebtech.cn' ] };
+  config.security = {
+    domainWhiteList: [ 'www.greatwebtech.cn', 'localhost:3000', '127.0.0.1:3000' ],
+    csrf: {
+      ignore: ctx => isInnerIp(ctx.ip),
+    },
+  };
 
   exports.passportLocal = {
     usernameField: 'name',

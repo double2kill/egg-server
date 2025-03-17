@@ -1,5 +1,5 @@
-const echarts = require("echarts");
-const moment = require("moment");
+import * as echarts from "echarts";
+import moment from "moment";
 
 function getVirtulData(data) {
   data = data.map((item) => echarts.format.formatTime("yyyy-MM-dd", item.time));

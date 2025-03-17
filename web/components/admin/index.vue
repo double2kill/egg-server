@@ -210,7 +210,7 @@ export default {
     querySearchNamespace(queryString, cb) {
       const result = this.namespaceList
         .filter((item) =>
-          item.toLowerCase().includes(queryString.toLowerCase())
+          item.toLowerCase()?.includes(queryString.toLowerCase())
         )
         .map((item) => ({
           value: item,

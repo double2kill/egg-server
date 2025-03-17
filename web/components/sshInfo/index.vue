@@ -65,12 +65,12 @@ export default {
       }
     },
     async getInfo(user) {
-      const result = await $fetch(`${EGG_SERVER}/v0.1/sshInfo`, {
-        params: {
-          user,
-        },
-      });
-      this.drawEcharts("sshInfo", result.data, user);
+      // const result = await $fetch(`${EGG_SERVER}/v0.1/sshInfo`, {
+      //   params: {
+      //     user,
+      //   },
+      // });
+      // this.drawEcharts("sshInfo", result.data, user);
     },
   },
 };

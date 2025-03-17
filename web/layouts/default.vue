@@ -1,18 +1,18 @@
 <template>
   <div>
-    <homeMenu v-if="showMenu" />
+    <HomeMenu v-if="showMenu" />
     <NuxtPage class="page-content" :class="{ pageWithoutMenu: !showMenu }" />
     <Footer />
   </div>
 </template>
 
 <script>
-import homeMenu from "./menu";
+import HomeMenu from "./menu";
 import Footer from "./footer";
 
 export default {
   components: {
-    homeMenu,
+    HomeMenu,
     Footer,
   },
   data() {

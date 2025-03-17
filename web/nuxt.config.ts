@@ -1,8 +1,15 @@
+import path from "path";
+
 const pkg = require("./package");
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-04',
+  alias: {
+    "@": path.resolve(__dirname, "./"),
+  },
+
   devtools: { enabled: true },
+
   app: {
     head: {
       title: pkg.name,
@@ -15,18 +22,24 @@ export default defineNuxtConfig({
       script: [],
     },
   },
-  css: ["assets/main.css"],
+
+  css: ["assets/main.css", "element-plus/dist/index.css"],
+
   plugins: [
     { src: "@/plugins/ckeditor", mode: "client" },
+    { src: "@/plugins/element-ui", mode: "client" },
   ],
+
   modules: ["@element-plus/nuxt", "@pinia/nuxt"],
-  // elementPlus: {},
-  // axios: {},s
-  // apollo: {
-  //   clientConfigs: {
-  //     default: {
-  //       httpEndpoint: "http://www.greatwebtech.cn:7001/graphql",
-  //     },
-  //   },
-  // },
+
+  nitro: {
+    devProxy: {
+      "/api/weathers": {
+        target: "http://www.greatwebtech.cn:7001/v0.1/weathers",
+        changeOrigin: true,
+      },
+    },
+  },
+
+  compatibilityDate: "2025-03-18",
 });

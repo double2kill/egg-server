@@ -13,7 +13,7 @@
       >
         {{ route.name }}
       </el-menu-item>
-      <el-sub-menu v-else :key="index" :index="String(index)">
+      <!-- <el-sub-menu v-else :key="index" :index="String(index)">
         <template slot="title">
           {{ route.name }}
         </template>
@@ -24,7 +24,7 @@
         >
           {{ subRoute.name }}
         </el-menu-item>
-      </el-sub-menu>
+      </el-sub-menu> -->
     </template>
   </el-menu>
 </template>
@@ -84,14 +84,13 @@ export default {
     handleSelect(key) {
       const { query } = this.$router.history?.current || { query: {} };
       let mode = this.getCurrentMode(query);
-      if (mode === "admin") {
-        if (key === "/") {
-          mode = undefined;
-        }
-      } else if (key === "/admin") {
-        mode = "admin";
-      }
-
+      // if (mode === "admin") {
+      //   if (key === "/") {
+      //     mode = undefined;
+      //   }
+      // } else if (key === "/admin") {
+      //   mode = "admin";
+      // }
       this.$router.push(
         {
           path: key,
